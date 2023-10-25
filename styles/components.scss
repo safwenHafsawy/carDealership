@@ -1,0 +1,312 @@
+/**
+ * Shape Dividers 
+ */
+
+.shape__divider__yellow {
+  @include separator($first-color);
+}
+
+.shape__divider__dark {
+  @include separator($fourth-color);
+}
+
+/**
+ * 
+ *  Navigation 
+ * 
+ * */
+
+.navigation {
+  position: fixed;
+  display: flex;
+  top: 0;
+  width: 100dvw;
+  height: 10%;
+  background-color: $fourth-color;
+  z-index: 5;
+  padding: 0 2%;
+  box-sizing: border-box;
+}
+
+.brand__name {
+  cursor: none;
+  width: 100%;
+  margin: 2% 1%;
+  background: $fourth-color;
+  background: linear-gradient(to right, $first-color 0%, $third-color 25%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navigation__list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100dvw;
+  height: 100%;
+
+  .navigation__list__item {
+    float: right;
+    height: 100%;
+    margin: 0 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+
+    & > a {
+      color: $second-color;
+      text-decoration: none;
+
+      &:hover {
+        text-shadow: 5px 5px 10px $third-color;
+      }
+    }
+  }
+}
+
+/**
+ * Links
+ */
+.dark__navLink {
+  @include navLinks($first-color, 1, $third-color);
+}
+
+.light__navLink {
+  @include navLinks($third-color, 2, $first-color);
+}
+
+/**
+ * Headers
+ */
+.section_header-dark {
+  @include sectionHeader($third-color, $second-color);
+}
+
+.section_header-light {
+  @include sectionHeader($first-color, $fourth-color);
+}
+
+.sub__header-light {
+  @include subHeader($fourth-color);
+}
+
+.sub__header-dark {
+  @include subHeader($second-color);
+}
+
+/**
+ * Cards 
+ */
+
+.card {
+  background-color: $fourth-color;
+  width: 100%;
+  max-width: 300px;
+  //max-height: 400px;
+  margin: 2em;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  color: $second-color;
+
+  .card__image {
+    width: 100%;
+    position: relative;
+
+    & > img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    &::after {
+      content: "";
+      background-image: url("https://i.postimg.cc/9MtT4GZY/view.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 30%;
+      background-color: $third-color;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+      cursor: pointer;
+    }
+
+    &:hover:after {
+      opacity: 0.8;
+    }
+  }
+  .card__details {
+    //background-color: aqua;
+    display: inline-block;
+    text-align: center;
+    height: 100%;
+  }
+
+  .card__action {
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/**
+ * filters
+ */
+.filters__container {
+  //background-color: aqua;
+  width: 100%;
+  min-height: 50%;
+  position: relative;
+  padding: 5% 5% 0 5%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $fourth-color;
+
+  & > * {
+    margin-bottom: 5%;
+  }
+}
+
+/**
+ * Search Box
+ */
+.search__box {
+  width: 60%;
+  height: 1rem;
+  padding: 15px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(17.1px);
+  -webkit-backdrop-filter: blur(17.1px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: all 100ms;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+    transform: scale(1.01);
+  }
+
+  &::placeholder {
+    font-family: inherit;
+  }
+}
+
+/**
+ * Price Slider
+ */
+.filters__container-price {
+  width: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+
+  .slider__track,
+  .slider__range {
+    border-radius: 3px;
+    height: 5px;
+    position: absolute;
+  }
+
+  .slider__track {
+    background-color: $second-color;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .slider__range {
+    background-color: $first-color;
+    z-index: 2;
+  }
+}
+
+//removing default range appearance
+.thumb,
+.thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.thumb {
+  pointer-events: none;
+  position: absolute;
+  height: 0;
+  width: 100%;
+  outline: none;
+}
+
+.thumb__z3 {
+  z-index: 3;
+}
+
+.thumb__z4 {
+  z-index: 4;
+}
+
+// redesign the thumb
+//for chrome browsers
+.thumb::-webkit-slider-thumb {
+  background-color: $second-color;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px $third-color;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+// for firefox browsers
+.thumb::-moz-range-thumb {
+  background-color: $second-color;
+  border: none;
+  border-radius: 20%;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+.slider__left-value,
+.slider__right-value {
+  color: $second-color;
+  font-size: 12px;
+  margin-top: 20px;
+  position: absolute;
+}
+
+.slider__left-value {
+  left: 6px;
+}
+
+.slider__right-value {
+  right: -4px;
+}

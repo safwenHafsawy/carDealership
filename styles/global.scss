@@ -1,0 +1,261 @@
+@import "./variables";
+@import "./global_mixins.scss";
+@import "./components.scss";
+
+/** Global Styles */
+:root,
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100dvw;
+  height: 100vh;
+  scroll-behavior: smooth;
+  background-color: $second-color;
+
+  & > * {
+    box-sizing: border-box;
+  }
+}
+
+main {
+  width: 100%;
+  height: 100%;
+}
+
+/**
+ * All Pages
+ */
+
+.page_sections {
+  @include pageSection;
+}
+
+/**
+ * Home Page
+ */
+
+//Section 1
+.homeBanner {
+  height: 100%;
+  padding: 5% 0% 5% 5%;
+  background-color: $fourth-color;
+  background-image: url("../public/wave_bg_rev.svg");
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.homeBanner__text {
+  width: 60%;
+
+  & > p {
+    color: $second-color;
+    font-size: 2rem;
+  }
+}
+
+.homeBanner__image {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+  & > img {
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    filter: grayscale(24%) sepia(44%) saturate(79%) contrast(81%)
+      drop-shadow(1px 4px 4px $first-color);
+    -webkit-filter: grayscale(24%) sepia(44%) saturate(79%) contrast(81%)
+      drop-shadow(1px 1px 4px $first-color);
+    -moz-filter: grayscale(24%) sepia(44%) saturate(79%) contrast(81%)
+      drop-shadow(1px 4px 4px $first-color);
+  }
+}
+
+//Section 2
+.why__us {
+  flex-direction: row-reverse;
+}
+
+.why__us__right {
+  width: 100%;
+  //height: 100%;
+  padding-left: 5%;
+  //background-color: #34302e;
+
+  & > ul {
+    list-style-type: none;
+    list-style-image: url("../public//listPointBlack.svg");
+
+    & > li {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.why__us__left {
+  width: 50%;
+  height: 100%;
+  margin: 1%;
+  display: flex;
+  justify-content: center;
+
+  & > img {
+    object-fit: contain;
+    width: 80%;
+    height: auto;
+  }
+}
+
+/**
+ * Car Catalog Page
+ */
+
+.car__catalog {
+  display: flex;
+  //background-color: aqua;
+  height: fit-content;
+  min-height: 100%;
+  flex-direction: column;
+}
+.page__sections__leftSide {
+  width: 100%;
+  height: 100%;
+  //margin-top: 5%;
+}
+
+.page__sections__rightSide {
+  //background-color: aqua;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 1%;
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.card__container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.catalog__leftSide {
+  position: relative;
+}
+
+/** 
+ * 
+ * Login Page
+ * 
+ */
+.page__section__dark {
+  background-color: $fourth-color;
+  height: 100%;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../public/wave_bg.svg");
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.login__form {
+  width: 30%;
+  min-width: fit-content;
+  height: 50%;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.login__items {
+  display: block;
+  height: 10%;
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  border: transparent;
+  font-size: 1rem;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+    border: 1px solid $second-color;
+  }
+}
+
+.login__btn {
+  background-color: $first-color;
+  width: 50%;
+  margin-top: 10px;
+  color: $fourth-color;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.social__login {
+  width: 100%;
+  padding: 5%;
+  height: 20%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.social__login-item {
+  background-color: $second-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: $fourth-color;
+
+  & > img {
+    margin-left: 5px;
+    width: 20px;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.options {
+  width: 80%;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  margin-top: 5%;
+  padding: 5%;
+  height: 10%;
+  box-sizing: border-box;
+  text-align: center;
+  color: $second-color;
+
+  span {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
