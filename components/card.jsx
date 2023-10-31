@@ -21,11 +21,6 @@ const Card = ({ id, model, image }) => {
         </h1>
         <p style={tilWeb.style}>Status : Available</p>
       </div>
-      <div className="card__action">
-        <NavLink type="dark__navLink" hrf={"/"}>
-          Book It
-        </NavLink>
-      </div>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import Navigation from "@/components/navigation";
 import "@/styles/global.scss";
 import { Andika } from "next/font/google";
+import Provider from "@/components/provider";
 
 export const metadata = {
   title: "Swift Cars",
@@ -11,9 +12,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Navigation />
-
-        <main>{children}</main>
+        <Provider>
+          <Navigation />
+          <main>{children}</main>
+        </Provider>
       </body>
     </html>
   );

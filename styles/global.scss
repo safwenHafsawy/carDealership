@@ -62,7 +62,7 @@ main {
 
   & > img {
     object-fit: contain;
-    width: 100%;
+    width: 80%;
     height: auto;
     filter: grayscale(24%) sepia(44%) saturate(79%) contrast(81%)
       drop-shadow(1px 4px 4px $first-color);
@@ -164,98 +164,4 @@ main {
   background-image: url("../public/wave_bg.svg");
   background-repeat: no-repeat;
   background-position: bottom;
-}
-
-.login__form {
-  width: 30%;
-  min-width: fit-content;
-  height: 50%;
-  min-height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.login__items {
-  display: block;
-  height: 10%;
-  width: 80%;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 3px;
-  padding: 0 10px;
-  margin: 8px;
-  font-size: 14px;
-  font-weight: 300;
-  border: transparent;
-  font-size: 1rem;
-  text-align: center;
-
-  &:focus {
-    outline: none;
-    border: 1px solid $second-color;
-  }
-}
-
-.login__btn {
-  background-color: $first-color;
-  width: 50%;
-  margin-top: 10px;
-  color: $fourth-color;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.social__login {
-  width: 100%;
-  padding: 5%;
-  height: 20%;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-}
-
-.social__login-item {
-  background-color: $second-color;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  color: $fourth-color;
-
-  & > img {
-    margin-left: 5px;
-    width: 20px;
-    height: auto;
-    object-fit: contain;
-  }
-}
-
-.options {
-  width: 80%;
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  margin-top: 5%;
-  padding: 5%;
-  height: 10%;
-  box-sizing: border-box;
-  text-align: center;
-  color: $second-color;
-
-  span {
-    text-decoration: underline;
-    cursor: pointer;
-  }
 }

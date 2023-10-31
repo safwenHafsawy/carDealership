@@ -65,6 +65,79 @@
         text-shadow: 5px 5px 10px $third-color;
       }
     }
+
+    & > button {
+      border: none;
+      background-color: transparent;
+      color: $second-color;
+      font-family: inherit;
+      font-size: 1.2rem;
+      cursor: pointer;
+
+      &:hover {
+        text-shadow: 5px 5px 10px $third-color;
+      }
+    }
+  }
+
+  .dropDownMenu {
+    //background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    //position: relative;
+
+    & > span {
+      color: $second-color;
+      cursor: pointer;
+    }
+
+    .dropDownMenu__list-hidden {
+      display: none;
+      visibility: hidden;
+    }
+    .dropDownMenu__list-shown {
+      display: flex;
+      flex-direction: column-reverse;
+      border: 1px solid $fourth-color;
+      list-style: none;
+      position: absolute;
+      top: 70px;
+      right: 10px;
+      width: 150px;
+      min-height: fit-content;
+      padding: 10px;
+      z-index: 5;
+      background-color: $second-color;
+      border-radius: 10px;
+    }
+
+    .dropDownMenu__list__item {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding-top: 10px;
+      &:nth-child(1) {
+        margin-top: 20px;
+
+        border-top: 1px solid $fourth-color;
+
+        & > button {
+          background-color: $first-color;
+          padding: 10px;
+          border-radius: 10px;
+          border: none;
+          box-sizing: border-box;
+          color: $second-color;
+          font-family: inherit;
+          cursor: pointer;
+        }
+      }
+
+      & > a {
+        color: $fourth-color;
+        text-decoration: none;
+      }
+    }
   }
 }
 
@@ -105,7 +178,7 @@
 .card {
   background-color: $fourth-color;
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
   //max-height: 400px;
   margin: 2em;
   border-radius: 15px;
@@ -115,6 +188,7 @@
   display: flex;
   flex-direction: column;
   color: $second-color;
+  position: relative;
 
   .card__image {
     width: 100%;
@@ -124,27 +198,6 @@
       width: 100%;
       height: auto;
       object-fit: cover;
-    }
-
-    &::after {
-      content: "";
-      background-image: url("https://i.postimg.cc/9MtT4GZY/view.png");
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: 30%;
-      background-color: $third-color;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transition: opacity 0.3s ease-out;
-      cursor: pointer;
-    }
-
-    &:hover:after {
-      opacity: 0.8;
     }
   }
   .card__details {
@@ -159,6 +212,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  &::after {
+    content: "";
+    background-image: url("https://i.postimg.cc/9MtT4GZY/view.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 30%;
+    background-color: $third-color;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    cursor: pointer;
+  }
+  &:hover:after {
+    opacity: 0.8;
   }
 }
 
@@ -309,4 +381,92 @@
 
 .slider__right-value {
   right: -4px;
+}
+
+/**
+ * Login/sign Up form
+ */
+.auth__form {
+  @include formContainer(50%);
+}
+
+.auth__form_long {
+  @include formContainer(70%);
+}
+
+.auth__items {
+  display: block;
+  height: 10%;
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  border: transparent;
+  font-size: 1rem;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+    border: 1px solid $second-color;
+  }
+}
+
+.auth__btn {
+  background-color: $first-color;
+  width: 50%;
+  height: 10%;
+  margin-top: 10px;
+  color: $second-color;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  border: transparent;
+}
+
+.social__auth {
+  width: 100%;
+  padding: 5%;
+  height: 20%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.social__auth-item {
+  background-color: $second-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: $fourth-color;
+
+  & > img {
+    margin-left: 5px;
+    width: 20px;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.options {
+  width: 80%;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  margin-top: 5%;
+  padding: 5%;
+  height: 10%;
+  box-sizing: border-box;
+  text-align: center;
+  color: $second-color;
+
+  span {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
