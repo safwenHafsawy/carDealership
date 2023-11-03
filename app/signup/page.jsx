@@ -5,22 +5,22 @@ import { useRouter } from "next/navigation";
 
 import Form from "@/components/form";
 
-const Signup = () => {
+const SignUp = () => {
   const router = useRouter();
   const handleSignUp = async (userData) => {
     const response = await fetch("/api/signup", {
       method: "POST",
-      //headers: "application/json",
-      body: JSON.stringify(userData),
+      body: userData,
     });
-    console.log(response);
 
-    //if (response.ok) router.push("/login");
+    if (response.status === 401) alert("Email or Username is already used !");
+    if (response.status === 500) alert("internal Server Error !");
+    if (response.status === 201) router.push("/login");
   };
   return (
     <section className=" page_sections page__section__dark">
       <Form
-        type="Create an account"
+        type="CreateAccount"
         items={[
           { name: "name", type: "text", placeholder: "full name" },
           { name: "username", type: "text", placeholder: "username" },
@@ -34,4 +34,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;

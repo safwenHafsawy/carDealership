@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/prisma/prisma";
+import bcrypt from "bcrypt";
 
 const handler = NextAuth({
   providers: [
@@ -15,8 +16,13 @@ const handler = NextAuth({
             OR: [{ email: creds.username }, { username: creds.username }],
           },
         });
-        console.log(user);
+
         if (!user) return null;
+
+        //checking password match
+        const passMatch = await bcrypt.compare(creds.password, user.password);
+
+        if (!passMatch) return null;
 
         return user;
       },
@@ -35,7 +41,7 @@ const handler = NextAuth({
 
       session.user = {
         ...session.user,
-        image: null,
+        image: user.image,
       };
 
       return session;

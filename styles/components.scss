@@ -111,6 +111,11 @@
       border-radius: 10px;
     }
 
+    .dropDownMenu__icon {
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
     .dropDownMenu__list__item {
       width: 100%;
       display: flex;
@@ -129,6 +134,7 @@
           box-sizing: border-box;
           color: $second-color;
           font-family: inherit;
+          font-size: 1.1rem;
           cursor: pointer;
         }
       }
@@ -136,6 +142,14 @@
       & > a {
         color: $fourth-color;
         text-decoration: none;
+        width: 100%;
+        text-align: center;
+        padding: 5px;
+
+        &:hover {
+          background-color: $fifth-color;
+          border-radius: 10px;
+        }
       }
     }
   }
@@ -226,6 +240,7 @@
     top: 0;
     left: 0;
     opacity: 0;
+    border-radius: 15px;
     transition: opacity 0.3s ease-out;
     cursor: pointer;
   }
@@ -391,14 +406,14 @@
 }
 
 .auth__form_long {
-  @include formContainer(70%);
+  @include formContainer(80%);
 }
 
 .auth__items {
   display: block;
-  height: 10%;
+  min-height: 3rem;
   width: 80%;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: $fifth-color;
   border-radius: 3px;
   padding: 0 10px;
   margin: 8px;
@@ -417,7 +432,7 @@
 .auth__btn {
   background-color: $first-color;
   width: 50%;
-  height: 10%;
+  height: 20%;
   margin-top: 10px;
   color: $second-color;
   font-size: 1rem;
@@ -429,7 +444,7 @@
 
 .social__auth {
   width: 100%;
-  padding: 5%;
+  padding: 5% 0 2% 0;
   height: 20%;
   box-sizing: border-box;
   display: flex;
@@ -458,8 +473,8 @@
 .options {
   width: 80%;
   border-top: 1px solid rgba(255, 255, 255, 0.5);
-  margin-top: 5%;
-  padding: 5%;
+  margin: 2%;
+  padding: 2%;
   height: 10%;
   box-sizing: border-box;
   text-align: center;
@@ -467,6 +482,41 @@
 
   span {
     text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+/**
+ * Drag And Drop
+ */
+
+.dragDrop__container {
+  background-color: $fifth-color;
+  border: 2px dashed $fourth-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 80%;
+  border-radius: 3px;
+  padding: 0 10px;
+  margin: 8px;
+  position: relative;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  .dragDrop__input {
+    width: 0.1px;
+    height: 0.1;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .dragDrop__label {
     cursor: pointer;
   }
 }

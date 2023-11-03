@@ -81,14 +81,14 @@
 }
 
 @mixin formContainer($height_p) {
+  margin-top: 5%;
   width: 30%;
   min-width: fit-content;
   height: $height_p;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
+  padding: 10px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(255, 255, 255, 0.5);

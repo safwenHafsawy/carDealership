@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Lato, Luckiest_Guy } from "next/font/google";
 import { signOut, useSession } from "next-auth/react";
 
@@ -24,9 +25,14 @@ function Navigation() {
       <ul style={cairo.style} className="navigation__list">
         {session ? (
           <div className="navigation__list__item dropDownMenu">
-            <span onClick={toggleDropDown} className="dropDownMenu__icon">
-              {session.user.name}
-            </span>
+            <Image
+              src={`/${session.user.image}`}
+              width={40}
+              height={40}
+              alt="user picture"
+              className="dropDownMenu__icon"
+              onClick={toggleDropDown}
+            />
             <ul
               className={
                 toggle

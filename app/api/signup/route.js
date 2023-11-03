@@ -1,14 +1,22 @@
 import prisma from "@/prisma/prisma";
 import bcrypt from "bcrypt";
+import { writeFile } from "fs/promises";
+import path from "path";
 
 export const POST = async (request) => {
   try {
-    const data = await request.json();
+    const data = await request.formData();
+    const name = data.get("name");
+    const username = data.get("username");
+    const age = data.get("age");
+    const email = data.get("email");
+    const password = data.get("password");
+    const img = data.get("userImage");
 
     //checking the user existence
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
       where: {
-        email: data.username,
+        OR: [{ email: data.username }, { username: data.username }],
       },
     });
 
@@ -17,8 +25,41 @@ export const POST = async (request) => {
         status: 401,
       });
 
-    return new Response("Hello", { status: 200 });
+    //image handling
+    const bytes = await img.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    const imageType = img.type.split("/")[1];
+
+    const filepath = path.join(
+      "public",
+      "uploadedImgs",
+      `${username}_image.${imageType}`
+    );
+
+    await writeFile(filepath, buffer);
+
+    //encrypting pw
+    const hash = await bcrypt.hash(password, 10);
+
+    const newUser = await prisma.user.create({
+      data: {
+        name: name,
+        username: username,
+        age: parseInt(age),
+        email: email,
+        password: hash,
+        image: filepath.substring(filepath.indexOf("uploadedImgs")),
+      },
+    });
+
+    if (newUser)
+      return new Response("Account Created Successfully !", {
+        status: 201,
+      });
+    //else return new Response("Could Not Create Account", { status: 500 })
   } catch (error) {
-    return new Response("Bad request", { status: 400 });
+    console.log(error);
+    return new Response("Internat Server Error", { status: 500 });
   }
 };

@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import CustomShapeDivider from "@/components/custom_shape_divider";
 
 import carsData from "../api/dummyData";
 import Card from "@/components/card";
 import { SectionHeader } from "@/components/header";
 import Filters from "@/components/filters";
+import CustomShapeDivider from "@/components/custom_shape_divider";
 
 const CarCatalog = () => {
   return (

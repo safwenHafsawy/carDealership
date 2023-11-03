@@ -6,13 +6,16 @@ import { useRouter, usePathname } from "next/navigation";
 import { Overlock } from "next/font/google";
 
 import { SubHeader } from "./header";
+import DragAndDrop from "./dragAndDropImg";
 
 const tinWeb = Overlock({ weight: "700", subsets: ["latin"] });
+const acceptedTypes = ["image/jpeg", "image/png"];
 
 const Form = ({ type, items, onclick }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [formValues, setFormValues] = useState({});
+  const [image, SetImage] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,6 +28,28 @@ const Form = ({ type, items, onclick }) => {
     } else {
       router.push("/login");
     }
+  };
+
+  const handleFile = (file) => {
+    if (acceptedTypes.includes(file.type)) {
+      SetImage(file);
+      console.log(file);
+    } else {
+      alert("Please Select and image of type png or jpeg");
+    }
+  };
+
+  const submitForm = () => {
+    if (type === "CreateAccount") {
+      const formData = new FormData();
+      for (let d in formValues) {
+        formData.append(d, formValues[d]);
+      }
+      formData.append("userImage", image);
+      onclick(formData);
+      return;
+    }
+    onclick(formValues);
   };
 
   return (
@@ -44,11 +69,16 @@ const Form = ({ type, items, onclick }) => {
           />
         );
       })}
+      {type === "Login" ? (
+        <></>
+      ) : (
+        <DragAndDrop image={image} changeImage={handleFile} />
+      )}
       <input
         type="submit"
         style={tinWeb.style}
         className="login__items auth__btn"
-        onClick={() => onclick(formValues)}
+        onClick={submitForm}
         value={type === "Login" ? "Login" : "Sign Up"}
       />
 
