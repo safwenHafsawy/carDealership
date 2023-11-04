@@ -11,12 +11,15 @@ datasource db {
 }
 
 model Car {
-    id           String  @id @default(uuid())
-    model        String
-    manufacturer String
-    status       Boolean @default(false)
-    rentedBy     User?   @relation(fields: [userId], references: [id])
-    userId       String
+    id            String  @id @default(uuid())
+    model         String
+    manufacturer  String
+    availability  Boolean @default(false)
+    pricePerHour  Float
+    image         String
+    technicalSpec String
+    userId        String?
+    rentedBy      User?   @relation(fields: [userId], references: [id])
 
     @@map(name: "cars")
 }

@@ -60,7 +60,13 @@ function Navigation() {
             <Link href="/login">Login</Link>
           </li>
         )}
-
+        {session?.user.role == "ADMIN" ? (
+          <li className="navigation__list__item">
+            <Link href="/dashboard">Dashboard</Link>
+          </li>
+        ) : (
+          <></>
+        )}
         <li className="navigation__list__item">
           <Link href="/carCatalog">Car Catalog</Link>
         </li>

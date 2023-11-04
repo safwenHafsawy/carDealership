@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Overlock } from "next/font/google";
 
 const tinWeb = Overlock({ weight: "700", subsets: ["latin"] });

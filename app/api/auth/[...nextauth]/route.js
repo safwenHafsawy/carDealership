@@ -42,6 +42,7 @@ const handler = NextAuth({
       session.user = {
         ...session.user,
         image: user.image,
+        role: user.Role,
       };
 
       return session;

@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-import Form from "@/components/form";
+import { AuthForm } from "@/components/form";
 
 const SignUp = () => {
   const router = useRouter();
@@ -19,7 +19,7 @@ const SignUp = () => {
   };
   return (
     <section className=" page_sections page__section__dark">
-      <Form
+      <AuthForm
         type="CreateAccount"
         items={[
           { name: "name", type: "text", placeholder: "full name" },

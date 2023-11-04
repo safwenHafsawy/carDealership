@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Form from "@/components/form";
+import { AuthForm } from "@/components/form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -23,7 +23,7 @@ const Login = () => {
 
   return (
     <section className=" page_sections page__section__dark">
-      <Form
+      <AuthForm
         type="Login"
         items={[
           { name: "username", type: "text", placeholder: "username or email" },

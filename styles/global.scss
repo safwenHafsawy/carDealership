@@ -28,9 +28,12 @@ main {
  */
 
 .page_sections {
-  @include pageSection;
+  @include pageSection(90%);
 }
 
+.page_sections-full {
+  @include pageSection(100%);
+}
 /**
  * Home Page
  */
@@ -128,6 +131,7 @@ main {
 .page__sections__rightSide {
   //background-color: aqua;
   width: 100%;
+  height: 100%;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -164,4 +168,94 @@ main {
   background-image: url("../public/wave_bg.svg");
   background-repeat: no-repeat;
   background-position: bottom;
+}
+
+/**
+ * Dashboard Page
+ */
+
+.adminDashboardSection {
+  margin-top: 5%;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
+  .adminOptions {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+
+    a {
+      width: 100%;
+      height: 100%;
+      margin: 10%;
+      padding: 2%;
+      text-decoration: none;
+    }
+
+    .adminOptions-option {
+      background-color: $fourth-color;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 10rem;
+
+      box-sizing: border-box;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 500ms;
+      font-size: 1.5rem;
+      position: relative;
+      box-shadow: 0px 1px 1px rgba(38, 38, 39, 0.08),
+        0px 5px 4px rgba(38, 38, 39, 0.08), 0px 12px 9px rgba(38, 38, 39, 0.08),
+        0px 20px 15px rgba(38, 38, 39, 0.08),
+        0px 32px 24px rgba(38, 38, 39, 0.08);
+
+      &::after {
+        content: "";
+        width: 30%;
+        height: 100%;
+        background: rgb(111, 81, 233);
+        background: linear-gradient(
+          90deg,
+          rgba(111, 81, 233, 1) 0%,
+          rgba(38, 38, 39, 1) 62%
+        );
+        position: absolute;
+        left: 0;
+        border-radius: 10px;
+        opacity: 0;
+        transition: all 500ms;
+      }
+
+      &:hover {
+        //background-color: $s-color;
+        box-shadow: 0px 1px 3px rgba(111, 81, 233, 0.26),
+          0px 5px 11px rgba(111, 81, 233, 0.26),
+          0px 12px 25px rgba(111, 81, 233, 0.26),
+          0px 20px 45px rgba(111, 81, 233, 0.26),
+          0px 32px 70px rgba(111, 81, 233, 0.26);
+
+        &::after {
+          opacity: 1;
+        }
+
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+/**
+ * Dashboard Car Page
+ */
+.addCar {
+  background-color: $fourth-color;
+  width: 60%;
 }

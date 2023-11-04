@@ -2,7 +2,7 @@ import React from "react";
 import { Lato, Overlock } from "next/font/google";
 
 const cairo = Lato({ weight: "900", subsets: ["latin"] });
-const work_sans = Overlock({ weight: "400", subsets: ["latin"] });
+const work_sans = Overlock({ weight: "700", subsets: ["latin"] });
 
 const SectionHeader = ({ type, children }) => {
   return (
@@ -14,9 +14,9 @@ const SectionHeader = ({ type, children }) => {
 
 const SubHeader = ({ type, children }) => {
   return (
-    <h1 style={work_sans.style} className={type}>
+    <h2 style={work_sans.style} className={type}>
       {children}
-    </h1>
+    </h2>
   );
 };
 
