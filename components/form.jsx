@@ -105,22 +105,22 @@ const AuthForm = ({ type, items, onclick }) => {
   );
 };
 
-const CarForm = ({ submitForm }) => {
-  const [carData, setCarData] = useState({
-    manufacturer: "",
-    model: "",
-    available: "",
-    image: "",
-    technicalSpecifications: "",
-    nextAv: "",
-  });
-
+/**
+ *
+ * CAR FORM COMPONENT
+ *
+ */
+const CarForm = ({
+  title,
+  carData,
+  handleChange,
+  status,
+  submitForm,
+  toggleUpdate,
+}) => {
   const handleFile = (file) => {
     if (acceptedTypes.includes(file.type)) {
-      setCarData((prevState) => {
-        return { ...prevState, image: file };
-      });
-      //console.log(file);
+      handleChange("image", file);
     } else {
       alert("Please Select and image of type png or jpeg");
     }
@@ -128,29 +128,30 @@ const CarForm = ({ submitForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    submitForm(carData);
+    let operation = title === "Create" ? "POST" : "PATCH";
+    submitForm(carData, operation);
   };
 
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    setCarData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const closeForm = (e) => {
+    e.preventDefault();
+    toggleUpdate(false);
   };
 
   return (
-    <form className="carForm">
-      <SubHeader type="sub__header-dark">Add a new car</SubHeader>
+    <form className={status ? "carForm" : "carForm-hidden"}>
+      <SubHeader type="sub__header-dark">
+        {title === "Create" ? "Add New Car" : "Update Car"}
+      </SubHeader>
+      <button style={tinWeb.style} className="closeForm" onClick={closeForm}>
+        Close
+      </button>
       <input
         name="manufacturer"
         value={carData.manufacturer}
         style={tinWeb.style}
         type="text"
         placeholder="Car Manufacturer"
-        onChange={handleChange}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
       />
       <input
         name="model"
@@ -158,11 +159,17 @@ const CarForm = ({ submitForm }) => {
         style={tinWeb.style}
         type="text"
         placeholder="Car Model"
-        onChange={handleChange}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
       />
-
+      {/**Availability */}
       <label style={tinWeb.style}>
-        <input type="radio" name="availability" value={true} />{" "}
+        <input
+          type="radio"
+          name="availability"
+          value={true}
+          onChange={(e) => handleChange(e.target.name, e.target.value)}
+          checked={carData.availability}
+        />
         <span>Available</span>
       </label>
 
@@ -172,6 +179,8 @@ const CarForm = ({ submitForm }) => {
           type="radio"
           name="availability"
           value={false}
+          onChange={(e) => handleChange(e.target.name, e.target.value)}
+          checked={!carData.availability}
         />
         <span>Not Available</span>
       </label>
@@ -180,26 +189,44 @@ const CarForm = ({ submitForm }) => {
         value={carData.nextAv}
         style={tinWeb.style}
         type="text"
-        placeholder="Next Available (If not Available)"
-        onChange={handleChange}
+        placeholder="Days until available (If not Available)"
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
+      />
+      <input
+        name="pricePerHour"
+        value={carData.pricePerHour}
+        style={tinWeb.style}
+        type="text"
+        placeholder="Hourly Price"
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
       />
       <textarea
         placeholder="Technical specifications"
-        name="technicalSpecifications"
+        name="technicalSpec"
         style={tinWeb.style}
         rows={5}
         col={50}
-        value={carData.technicalSpecifications}
-        onChange={handleChange}
+        value={carData.technicalSpec}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
       />
       <DragAndDrop image={carData.image} changeImage={handleFile} />
 
       <input
         style={tinWeb.style}
         type="submit"
-        value="Add Car"
+        value={title === "Create" ? "Add Car" : "Update Car"}
         onClick={handleSubmit}
       />
+      <button
+        style={tinWeb.style}
+        className="removeBtn"
+        onClick={(e) => {
+          e.preventDefault();
+          submitForm({ id: carData.id }, "DELETE");
+        }}
+      >
+        Remove Car
+      </button>
     </form>
   );
 };

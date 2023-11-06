@@ -18,6 +18,7 @@ model Car {
     pricePerHour  Float
     image         String
     technicalSpec String
+    nextAv        Int?
     userId        String?
     rentedBy      User?   @relation(fields: [userId], references: [id])
 
@@ -29,7 +30,7 @@ model User {
     name       String
     username   String   @unique
     email      String   @unique
-    age        Int
+    age        Int  
     password   String
     image      String?
     createdAt  DateTime @default(now()) @map(name: "created_at")
