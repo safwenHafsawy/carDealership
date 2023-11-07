@@ -274,23 +274,85 @@ main {
   }
 
   .options {
-    background-color: $fifth-color;
+    border: none;
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    border-radius: 20px;
+    border-radius: 10px;
     height: 5rem;
 
-    & > button {
-      height: 3rem;
-      font-size: 1.1rem;
-      color: $second-color;
+    .options-left {
+      width: 70%;
+      background-color: $fifth-color;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 10px;
+      border-radius: 20px;
+      .filters_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        min-width: 300px;
+        .filters_option {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          margin-top: 5px;
+          box-sizing: border-box;
+          //background-color: magenta;
+
+          & > span {
+            //width: 100%;
+            text-align: start;
+            color: $fourth-color;
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: block;
+            box-sizing: border-box;
+            //background-color: aqua;
+          }
+
+          .filters_option-set {
+            display: flex;
+            flex-direction: row;
+            width: 50%;
+          }
+        }
+      }
+      & > button {
+        width: 10%;
+        height: 10%;
+        height: 3rem;
+        font-size: 1.1rem;
+        color: $second-color;
+        background-color: $third-color;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+    }
+
+    .options-right {
       width: 10%;
-      background-color: $first-color;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
+      background-color: $fifth-color;
+      padding: 10px;
+      border-radius: 20px;
+      & > button {
+        height: 3rem;
+        font-size: 1.1rem;
+        color: $second-color;
+        width: 100%;
+        background-color: $first-color;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+      }
     }
   }
 

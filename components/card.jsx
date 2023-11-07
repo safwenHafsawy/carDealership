@@ -29,7 +29,7 @@ const Card = ({ carDetails, toggleUpdate, handleChange, resetForm }) => {
             if (carDetails[dt] === null) value = "";
             handleChange(dt, value);
           } else if (dt === "image") {
-            console.log(carDetails[dt].split("\\cars\\")[1].split("_")[0]);
+            //console.log(carDetails[dt].split("\\cars\\")[1].split("_")[0]);
           }
         }
 
@@ -53,7 +53,7 @@ const Card = ({ carDetails, toggleUpdate, handleChange, resetForm }) => {
         <p style={tilWeb.style}>
           Status : {availability ? "Available" : `Available in ${nextAv} days`}
         </p>
-        <p>Price Per Hour : {pricePerHour} $</p>
+        <p style={tilWeb.style}>Price Per Hour : {pricePerHour} $</p>
       </div>
     </div>
   );

@@ -117,6 +117,7 @@ const CarForm = ({
   status,
   submitForm,
   toggleUpdate,
+  validationsError,
 }) => {
   const handleFile = (file) => {
     if (acceptedTypes.includes(file.type)) {
@@ -145,6 +146,11 @@ const CarForm = ({
       <button style={tinWeb.style} className="closeForm" onClick={closeForm}>
         Close
       </button>
+      <div
+        className={validationsError.length > 0 ? "error-show" : "error-hide"}
+      >
+        <p>{validationsError}</p>
+      </div>
       <input
         name="manufacturer"
         value={carData.manufacturer}
@@ -219,7 +225,7 @@ const CarForm = ({
       />
       <button
         style={tinWeb.style}
-        className="removeBtn"
+        className={title === "Create" ? "removeBtn-hidden" : "removeBtn-shown"}
         onClick={(e) => {
           e.preventDefault();
           submitForm({ id: carData.id }, "DELETE");
