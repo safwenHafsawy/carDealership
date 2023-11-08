@@ -47,10 +47,10 @@ const Cars = () => {
 
     //getting the list of available manufacturers
     allCars.current.forEach((car) => {
-      console.log(car);
+      //console.log(car);
       if (!existingManufacturers.current.includes(car.manufacturer)) {
-        console.log("No manufacturer");
-        console.log(existingManufacturers);
+        //console.log("No manufacturer");
+        //console.log(existingManufacturers);
         existingManufacturers.current.push(car.manufacturer);
       }
     });
@@ -160,7 +160,7 @@ const Cars = () => {
         }
       }
     } catch (error) {
-      // console.log(error);
+      //  (error);
       if (
         error === "Make sure to fill all fields" ||
         error ===
@@ -206,9 +206,7 @@ const Cars = () => {
    * Filtering Cars
    */
 
-  const handleFilterChange = (e) => {
-    let { name, value } = e.target;
-
+  const handleFilterChange = ({ name, value }) => {
     if (value === "Available") value = true;
     else if (value === "Not Available") value = false;
 
@@ -238,7 +236,7 @@ const Cars = () => {
       }
     }
 
-    console.log(filters.current);
+    //console.log(filters.current);
   };
 
   const filterCars = () => {
@@ -261,7 +259,7 @@ const Cars = () => {
     setListOfCars([...filteredCars]);
   };
 
-  useEffect(() => console.log(filters), [filters]);
+  //useEffect(() => console.log(filters), [filters]);
 
   return (
     <section className="page_sections-full">
@@ -288,7 +286,6 @@ const Cars = () => {
                 <span style={tinWeb.style}>Manufacturer: </span>
                 <div className="filters_option-set">
                   {existingManufacturers.current.map((manufacturer, index) => {
-                    console.log(index);
                     return (
                       <CheckboxFilter
                         key={index}
