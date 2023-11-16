@@ -1,8 +1,5 @@
 import prisma from "@/prisma/prisma";
-import { writeFile, unlink } from "fs/promises";
-import path from "path";
-import { v4 } from "uuid";
-import sharp from "sharp";
+import { addNewImage, removeOldImage } from "@/utils/imageOperations";
 
 /**
  *
@@ -15,15 +12,10 @@ export const GET = async () => {
     const cars = await prisma.car.findMany();
 
     if (cars) return new Response(JSON.stringify(cars), { status: 200 });
-    else
-      new Response(JSON.stringify({ message: "could not fetch cars" }), {
-        status: 400,
-      });
+    else new Response(null, { status: 400 });
   } catch (err) {
     console.log(err);
-    new Response(JSON.stringify({ message: "internal server error" }), {
-      status: 500,
-    });
+    new Response(null, { status: 500 });
   }
 };
 
@@ -46,26 +38,7 @@ export const POST = async (req) => {
     const pricePerHour = carData.get("pricePerHour");
 
     //handling image
-    const bytes = await image.arrayBuffer();
-    //resize image using sharp
-    const imageBuffer = await sharp(Buffer.from(bytes))
-      .resize({
-        width: 1000,
-        height: 1000,
-        fit: "cover",
-      })
-      .toBuffer();
-
-    const imageExt = image.type.split("/")[1];
-    const randomUUID = v4();
-    const imagePath = path.join(
-      "public",
-      "uploadedImgs",
-      "cars",
-      `${image.name}_${randomUUID}.${imageExt}`
-    );
-
-    await writeFile(imagePath, imageBuffer);
+    const newImagePath = await addNewImage(image);
 
     const car = await prisma.car.create({
       data: {
@@ -75,7 +48,7 @@ export const POST = async (req) => {
         availability: JSON.parse(availability),
         pricePerHour: parseFloat(pricePerHour),
         nextAv: parseInt(nextAv),
-        image: imagePath.split("public\\")[1],
+        image: newImagePath.split("public\\")[1],
       },
     });
 
@@ -95,6 +68,7 @@ export const POST = async (req) => {
 
 export const PATCH = async (req) => {
   try {
+    let newImagePath;
     const rawFormData = await req.formData();
 
     let carData = {};
@@ -110,14 +84,18 @@ export const PATCH = async (req) => {
       },
     });
 
-    // handling data change
-    for (let key of Object.keys(carData)) {
-      if (carData[key] == "") {
-        carData[key] = car[key];
-      }
-    }
+    //checking if user changed the image
 
-    console.log(carData.availability);
+    let image = null;
+    if (carData.image === "" && !image) {
+      image = car.image;
+    } else if (typeof carData.image === "object") {
+      //handling new image
+      //delete old image
+      await removeOldImage(car.image);
+
+      newImagePath = await addNewImage(carData.image);
+    }
     const newCar = await prisma.car.update({
       where: {
         id: carData.id,
@@ -129,9 +107,10 @@ export const PATCH = async (req) => {
         availability: JSON.parse(carData.availability),
         pricePerHour: parseFloat(carData.pricePerHour),
         nextAv: parseInt(carData.nextAv),
-        image: carData.image,
+        image: carData.image === "" ? image : newImagePath.split("public\\")[1],
       },
     });
+
     if (newCar) return new Response(JSON.stringify(newCar), { status: 201 });
     else
       return new Response(
@@ -139,7 +118,7 @@ export const PATCH = async (req) => {
         { status: 400 }
       );
   } catch (error) {
-    //console.log("Error:  ", error);
+    console.log("Error:  ", error);
     return new Response({ message: "Internal server error" }, { status: 500 });
   }
 };
@@ -162,9 +141,7 @@ export const DELETE = async (req) => {
     });
 
     //remove car image after deletion
-    const imagePath = path.join("public/", `${car.image}`);
-
-    await unlink(imagePath);
+    await removeOldImage(car.image);
 
     if (car) return new Response(null, { status: 204 });
     else

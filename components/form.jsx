@@ -217,12 +217,14 @@ const CarForm = ({
       />
       <DragAndDrop image={carData.image} changeImage={handleFile} />
 
-      <input
+      <button
         style={tinWeb.style}
         type="submit"
-        value={title === "Create" ? "Add Car" : "Update Car"}
         onClick={handleSubmit}
-      />
+        className="submit-btn"
+      >
+        {title === "Create" ? "Add Car" : "Update Car"}
+      </button>
       <button
         style={tinWeb.style}
         className={title === "Create" ? "removeBtn-hidden" : "removeBtn-shown"}

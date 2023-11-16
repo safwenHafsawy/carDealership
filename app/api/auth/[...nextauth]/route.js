@@ -1,53 +1,64 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import prisma from "@/prisma/prisma";
-import bcrypt from "bcrypt";
+import { checkUserCred } from "@/utils/userOperations";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-const handler = NextAuth({
+const authOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     CredentialsProvider({
       name: "credentials",
 
       async authorize(credentials) {
-        const creds = await JSON.parse(credentials.data);
-
-        const user = await prisma.user.findFirst({
-          where: {
-            OR: [{ email: creds.username }, { username: creds.username }],
-          },
-        });
-
-        if (!user) return null;
-
-        //checking password match
-        const passMatch = await bcrypt.compare(creds.password, user.password);
-
-        if (!passMatch) return null;
-
-        return user;
+        return await checkUserCred(credentials);
       },
     }),
   ],
-
   callbacks: {
-    session: async ({ session }) => {
-      if (!session) return;
+    async jwt({ token, user, session }) {
+      //  console.log("JWT token");
+      // console.log("user in jwt: ", user);
+      //  console.log("token: ", token, "user: ", user, "Session: ", session);
+      // console.log("--------------------------------");
 
-      const user = await prisma.user.findUnique({
-        where: {
-          email: session.user.email,
-        },
-      });
+      if (user) {
+        return {
+          ...token,
+          userId: user.id,
+          userRole: user.Role,
+          userPicture: user.image,
+        };
+      }
+
+      return token;
+    },
+    async session({ session, token, user }) {
+      if (!session) return;
 
       session.user = {
         ...session.user,
-        image: user.image,
-        role: user.Role,
+        id: token.userId,
+        image: token.userPicture,
+        role: token.userRole,
       };
-
+      // console.log("session: ", session);
       return session;
     },
   },
-});
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+  },
+
+  debug: process.env.NODE_ENV === "development",
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

@@ -64,16 +64,21 @@ const Cars = () => {
    * form validation
    */
 
-  const validateForm = async (carData) => {
-    return new Promise((resolve, reject) => {
-      setFormValidationErrors("");
+  const validateForm = async (carData, operation) => {
+    setFormValidationErrors("");
 
+    return new Promise((resolve, reject) => {
       // Checking if all fields are filled (for update and create)
       for (const field in carData) {
+        if (formValidationErrors.length > 0) {
+          reject(formValidationErrors);
+        }
         if (
           carData[field] === "" &&
           !formValidationErrors.includes("Make sure to fill all fields") &&
-          field !== "nextAv"
+          field !== "nextAv" &&
+          field !== "image" &&
+          field !== "id"
         ) {
           reject("Make sure to fill all fields");
         }
@@ -93,6 +98,14 @@ const Cars = () => {
         );
       }
 
+      // checking if operation is create and there's no image
+      if (
+        operation === "POST" &&
+        (!carData.image || carData.image === "") &&
+        !formValidationErrors.includes("Make sure to fill all fields")
+      ) {
+        reject("Make sure to fill all fields");
+      }
       resolve();
     });
   };
@@ -103,7 +116,7 @@ const Cars = () => {
 
   const handleOperation = async (carData, operation) => {
     try {
-      await validateForm(carData);
+      await validateForm(carData, operation);
 
       const formData = new FormData();
       for (let data in carData) {
@@ -191,6 +204,7 @@ const Cars = () => {
    */
 
   const showForm = (status, opType) => {
+    setFormValidationErrors("");
     setFormTitle(opType);
     setToggleForm(status);
   };

@@ -9,15 +9,19 @@ const Login = () => {
   const router = useRouter();
 
   const handleLogin = async (userData) => {
-    const response = await signIn("credentials", {
-      data: JSON.stringify(userData),
-      redirect: false,
-    });
+    try {
+      const response = await signIn("credentials", {
+        data: JSON.stringify(userData),
+        redirect: false,
+      });
 
-    if (response.ok) {
-      router.push("/");
-    } else {
-      alert("nono");
+      if (response.ok) {
+        router.push("/");
+      } else {
+        alert("nono");
+      }
+    } catch (error) {
+      alert(error.message);
     }
   };
 
