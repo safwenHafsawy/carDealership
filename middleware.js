@@ -13,11 +13,7 @@ async function middleware(req) {
 
   //check if user is not admin and trying to access dashboard page
   const adminRoutes = new RegExp("/dashboard");
-  if (
-    isAuth &&
-    adminRoutes.test(req.nextUrl.pathname) &&
-    token?.userRole !== "ADMIN"
-  ) {
+  if (adminRoutes.test(req.nextUrl.pathname) && token?.userRole !== "ADMIN") {
     console.log("not admin");
     return NextResponse.redirect(new URL("/", req.url));
   }
