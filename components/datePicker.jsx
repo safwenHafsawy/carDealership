@@ -6,23 +6,14 @@ import Calendar from "./calendar/calendar";
 const DatePicker = ({ defaultClass }) => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
-  const onChange = (event) => {
-    setDate(event.target.value);
+  const onSelect = (day, month, year) => {
+    setDate(year + "-" + month + "-" + day);
   };
 
   return (
     <div className="datepicker-toggle">
-      <label htmlFor="datepicker" class="datepicker-toggle-button">
-        {date}
-      </label>
-      <input
-        id="datepicker"
-        type="date"
-        className="datepicker-input"
-        value={date}
-        onChange={onChange}
-      />
-      <Calendar />
+      <span>{date}</span>
+      <Calendar selectDate={onSelect} />
     </div>
   );
 };

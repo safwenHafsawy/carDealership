@@ -1,17 +1,14 @@
-export const getMonthsCalendar = (year) => {
-  const monthsArray = [];
-  for (let month = 0; month < 12; month++) {
-    const numberOfDays = new Date(year, month + 1, 0).getDate();
-    const monthName = new Date(year, month, 1).toLocaleDateString(undefined, {
-      month: "long",
-    });
+export const getMonthNumberOfDays = (year, month) => {
+  return new Date(year, month + 1, 0).getDate();
+};
 
-    monthsArray.push({
-      monthNumber: month + 1,
-      month: monthName,
-      numberOfDays,
-    });
+export const getListOfMonths = () => {
+  var months = [];
+  for (var i = 0; i < 12; i++) {
+    const date = new Date(2000, i, 1);
+    const monthName = date.toLocaleDateString(undefined, { month: "long" });
+    months.push(monthName);
   }
 
-  return monthsArray;
+  return months;
 };
