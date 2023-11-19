@@ -44,48 +44,45 @@ const Calendar = ({ selectDate }) => {
   }, []);
 
   /**
-   * Change the year and month
+   * Month to month navigation
    */
-
-  const updateYear = (operation) => {
-    switch (operation) {
-      case "forward":
-        setYear((prevState) => prevState + 1);
-        break;
-      case "backward":
-        if (year > DateObject.getFullYear())
-          setYear((prevState) => prevState - 1);
-        break;
-    }
-  };
 
   const updateMonth = (operation) => {
     switch (operation) {
       case "forward":
         if (currentMonth < 11) setCurrentMonth((prevState) => prevState + 1);
-
+        else if (currentMonth === 11) {
+          setCurrentMonth(0);
+          setYear((prevState) => prevState + 1);
+        }
         break;
       case "backward":
-        if (currentMonth > 0) setCurrentMonth((prevState) => prevState - 1);
+        if (
+          currentMonth > DateObject.getMonth() ||
+          (currentMonth > 0 && year > DateObject.getFullYear())
+        ) {
+          setCurrentMonth((prevState) => prevState - 1);
+          console.log(year);
+        } else if (currentMonth === 0) {
+          setCurrentMonth(11);
+          setYear((prevState) => prevState - 1);
+        }
         break;
     }
   };
 
   useEffect(() => {
     getMonthAndDays();
-  }, [currentMonth, year]);
+  }, [currentMonth]);
 
   return (
     <div className="calendar__container">
       <div className="calendar__options">
-        <div className="calendar_option calendar__options-year">
-          <button onClick={() => updateYear("backward")}>&#60;&#60;</button>
-          <h3>{year}</h3>
-          <button onClick={() => updateYear("forward")}>&#62;&#62;</button>
-        </div>
         <div className="calendar_option calendar__options-month">
           <button onClick={() => updateMonth("backward")}>&#60;</button>
-          <h3>{month.name}</h3>
+          <h3>
+            {month.name} / {year}
+          </h3>
           <button onClick={() => updateMonth("forward")}>&#62;</button>
         </div>
       </div>
