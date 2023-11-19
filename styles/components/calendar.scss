@@ -1,3 +1,37 @@
 .calendar__container {
   background-color: $second_color;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 70%;
+  margin-top: 20px;
+}
+
+.calendar_option {
+  display: flex;
+  justify-content: space-between;
+  background: aqua;
+  width: 100%;
+  height: 50%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/*.calendar__options {
+  .calendar__options-year {
+  }
+  .calendar__options-month {
+  }
+}*/
+
+.calendar_dates {
+  //background-color: magenta;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  .calendar__dates-date {
+    width: 5%;
+    background-color: aquamarine;
+    margin: 10px;
+  }
 }

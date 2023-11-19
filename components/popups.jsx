@@ -9,12 +9,12 @@ const InputModal = (props) => {
 
   return (
     <div className="popup_container">
-      <form className="carDetails">
+      <div className="popup">
         <input type="text" value={session?.user.name} readOnly />
         <div className="datePicker__container">
           <DatePicker />
         </div>
-      </form>
+      </div>
     </div>
   );
 };

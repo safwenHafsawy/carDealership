@@ -11,8 +11,9 @@ const DatePicker = ({ defaultClass }) => {
   };
 
   return (
-    <div className="datepicker-toggle">
-      <span>{date}</span>
+    <div className="datepicker">
+      <span>Start Date : {date}</span> {"  "}
+      <span>End Date : {date}</span>
       <Calendar selectDate={onSelect} />
     </div>
   );
