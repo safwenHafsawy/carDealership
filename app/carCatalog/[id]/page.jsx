@@ -3,8 +3,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import { SectionHeader } from "@/components/header";
+import { InputModal } from "@/components/popups";
 import { Overlock, Andika } from "next/font/google";
 
 const tinWeb = Overlock({ weight: "900", subsets: ["latin"] });
@@ -14,6 +17,8 @@ const CarDetails = () => {
   const [carDetails, setCarDetails] = useState({});
   const pathname = usePathname();
   const carId = useRef(pathname.split("/")[2]);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const fetchCarData = async () => {
     try {
@@ -43,8 +48,13 @@ const CarDetails = () => {
     fetchCarData();
   }, []);
 
+  const bookCar = () => {
+    if (!session) router.push("/login");
+  };
+
   return (
     <section className="page_sections-full">
+      <InputModal />
       <div className="page__sections__leftSide car__image">
         <Image
           src={`/${carDetails.image}`}
@@ -81,7 +91,9 @@ const CarDetails = () => {
           </div>
         </div>
         <div className="options">
-          <button style={tinWeb.style}>Book This Car</button>
+          <button style={tinWeb.style} onClick={bookCar}>
+            Book This Car
+          </button>
         </div>
       </div>
     </section>

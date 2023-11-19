@@ -722,3 +722,27 @@
 .checkboxFilter_container {
   @include checkboxFilterMix($fourth-color);
 }
+
+/** Popups */
+.popup_container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 15;
+}
+
+/**
+ * Date Picker 
+ */
+@import "./components/datepicker.scss";
+
+/**
+ * Calendar 
+ */
+@import "./components/calendar.scss";
