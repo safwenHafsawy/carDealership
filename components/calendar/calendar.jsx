@@ -2,7 +2,11 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { Overlock } from "next/font/google";
+
 import { getMonthNumberOfDays, getListOfMonths } from "./utils";
+
+const work_sans = Overlock({ weight: "700", subsets: ["latin"] });
 
 const Calendar = ({ selectDate }) => {
   const months = useRef([]);
@@ -62,7 +66,6 @@ const Calendar = ({ selectDate }) => {
           (currentMonth > 0 && year > DateObject.getFullYear())
         ) {
           setCurrentMonth((prevState) => prevState - 1);
-          console.log(year);
         } else if (currentMonth === 0) {
           setCurrentMonth(11);
           setYear((prevState) => prevState - 1);
@@ -75,12 +78,27 @@ const Calendar = ({ selectDate }) => {
     getMonthAndDays();
   }, [currentMonth]);
 
+  /**
+   * Checking Date eligibility
+   */
+
+  const determineDateAvailability = (day) => {
+    // check the comments
+    if (currentMonth === DateObject.getMonth()) {
+      // block the days that already passed from current month
+      if (day < DateObject.getDate()) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   return (
     <div className="calendar__container">
       <div className="calendar__options">
         <div className="calendar_option calendar__options-month">
           <button onClick={() => updateMonth("backward")}>&#60;</button>
-          <h3>
+          <h3 className={work_sans.className}>
             {month.name} / {year}
           </h3>
           <button onClick={() => updateMonth("forward")}>&#62;</button>
@@ -90,10 +108,16 @@ const Calendar = ({ selectDate }) => {
         {listOfDays.map((day, i) => {
           return (
             <span
-              className="calendar__dates-date"
+              className={`${work_sans.className} calendar__dates-date ${
+                determineDateAvailability(day)
+                  ? "date-available"
+                  : "date-unavailable"
+              }`}
               key={i}
-              onClick={(e) =>
-                selectDate(year, month.number, e.target.textContent)
+              onClick={
+                determineDateAvailability(day)
+                  ? (e) => selectDate(year, month.number, e.target.textContent)
+                  : null
               }
             >
               {day}

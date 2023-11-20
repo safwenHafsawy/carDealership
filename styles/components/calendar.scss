@@ -6,6 +6,8 @@
   margin-top: 20px;
   border-radius: 16px;
   width: 80%;
+  left: 10%;
+  border: 3px solid $first-color;
 }
 
 .calendar_option {
@@ -15,6 +17,25 @@
   height: 50%;
   padding: 12px;
   box-sizing: border-box;
+  background-color: $first-color;
+  border-radius: 10px;
+
+  & > h3 {
+    color: $second-color;
+  }
+
+  & > button {
+    background-color: transparent;
+    border: none;
+    font-weight: bolder;
+    color: $second-color;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
 }
 
 /*.calendar__options {
@@ -37,15 +58,23 @@
     width: 12%;
     border-radius: 8px;
     font-size: 1.2rem;
-    padding: 8px;
+    padding: 12px 8px;
     //margin-right: 12px;
     box-sizing: border-box;
     text-align: center;
-    cursor: pointer;
+  }
 
+  .date-available {
+    cursor: pointer;
     &:hover {
       background-color: $first-color;
       color: $second-color;
     }
+  }
+
+  .date-unavailable {
+    color: $fourth-color-shade;
+    text-decoration: line-through;
+    cursor: not-allowed;
   }
 }
