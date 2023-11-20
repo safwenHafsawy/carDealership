@@ -19,10 +19,22 @@ model Car {
     image         String
     technicalSpec String
     nextAv        Int?
-    userId        String?
-    rentedBy      User?   @relation(fields: [userId], references: [id])
+    carRental     carRental[]
 
     @@map(name: "cars")
+}
+
+model carRental {
+    id String @id @default(uuid())
+    carId  String
+    userId String
+    startDate String
+    endDate String
+
+    rentedBy User? @relation(fields: [userId], references: [id])
+    carRentalDates Car @relation(fields: [carId], references: [id])
+
+    @@map("Car Rental")
 }
 
 model User {
@@ -34,7 +46,7 @@ model User {
     password   String
     image      String?
     createdAt  DateTime @default(now()) @map(name: "created_at")
-    rentedCars Car[]
+    rentedCars carRental[]
     sessions   Session[]
     Role       UserRole @default(USER)
 
@@ -50,8 +62,6 @@ model Session {
 
   @@map(name: "sessions")
 }
-
-
 
 enum UserRole {
     USER
