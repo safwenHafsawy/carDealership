@@ -1,3 +1,8 @@
+export const parseDate = (dateString) => {
+  const [day, month, year] = dateString.split("/");
+  return new Date(`${year}-${month}-${day}`);
+};
+
 export const getMonthNumberOfDays = (year, month) => {
   return new Date(year, month + 1, 0).getDate();
 };

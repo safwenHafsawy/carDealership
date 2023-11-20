@@ -1,8 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import Calendar from "./calendar/calendar";
+import Calendar from "./calendar";
+import { Overlock, Andika } from "next/font/google";
 
+const work_sans = Overlock({ weight: "700", subsets: ["latin"] });
+const regular_text = Andika({ weight: "400", subsets: ["latin"] });
 const locale = "en-GB";
 const options = {
   year: "numeric",
@@ -10,7 +13,7 @@ const options = {
   day: "2-digit",
 };
 
-const DatePicker = ({ defaultClass }) => {
+const DatePicker = ({ error, errorHandler, onSubmit }) => {
   const [startDate, setStartDate] = useState(
     new Date().toLocaleString(locale, options)
   );
@@ -38,23 +41,41 @@ const DatePicker = ({ defaultClass }) => {
 
   return (
     <div className="datepicker">
-      <div className="date__container">
-        <span>Start Date : </span>
-        <input
-          onClick={() => handleToggleCalendar("Start")}
-          value={startDate}
-          readOnly
-        />
+      <div className="dates__container">
+        <div className={`${regular_text.className} error__handler`}>
+          {error}
+        </div>
+        <div className="date__container-date">
+          <span className={work_sans.className}>Start Date</span>
+          <input
+            className={work_sans.className}
+            onClick={() => handleToggleCalendar("Start")}
+            value={startDate}
+            readOnly
+          />
+        </div>
+        <div className="date__container-date">
+          <span className={work_sans.className}>End Date</span>
+          <input
+            className={work_sans.className}
+            onClick={() => handleToggleCalendar("End")}
+            value={endDate}
+            readOnly
+          />
+        </div>
       </div>
-      <div className="date__container">
-        <span>End Date : </span>
-        <input
-          onClick={() => handleToggleCalendar("End")}
-          value={endDate}
-          readOnly
-        />
-      </div>
+
       {toggleCalendar[0] ? <Calendar selectDate={onSelect} /> : <></>}
+      <div className="actions">
+        <button
+          className={work_sans.className}
+          onClick={() => {
+            onSubmit(startDate, endDate);
+          }}
+        >
+          Book Car
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,8 +1,52 @@
 .datepicker {
-  //background-color: magenta;
-  //width: 100%;
-  & > span {
-    width: 100%;
-    font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .dates__container {
+    .error__handler {
+      color: $danger-color;
+      text-align: center;
+      font-size: 0.7rem;
+    }
+
+    .date__container-date {
+      margin: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      & > span {
+        text-align: center;
+        font-size: 1.3rem;
+      }
+
+      & > input {
+        font-size: 1.1rem;
+        text-align: center;
+        background-color: $fifth-color;
+        border: 3px solid $third-color;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 50%;
+      }
+    }
+  }
+  & > .actions {
+    border-top: 1px solid $fourth-color-shade;
+    padding: 12px 0;
+    display: flex;
+    justify-content: center;
+
+    & > button {
+      width: 25%;
+      padding: 4px;
+      background-color: $first-color;
+      color: $second-color;
+      border-radius: 8px;
+      border: transparent;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
   }
 }

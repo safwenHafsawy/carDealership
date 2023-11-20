@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Overlock } from "next/font/google";
 
-import { getMonthNumberOfDays, getListOfMonths } from "./utils";
+import { getMonthNumberOfDays, getListOfMonths } from "@/utils/dateOperations";
 
 const work_sans = Overlock({ weight: "700", subsets: ["latin"] });
 
