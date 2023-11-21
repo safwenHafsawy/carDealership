@@ -10,7 +10,7 @@ import { parseDate } from "@/utils/dateOperations";
 
 const cairo = Lato({ weight: "900", subsets: ["latin"] });
 
-const InputModal = ({ handleModalToggle, rentalLog }) => {
+const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
   const { data: session } = useSession();
   const pathname = usePathname();
   const [dateValidationError, setDateValidationError] = useState("");
@@ -35,6 +35,13 @@ const InputModal = ({ handleModalToggle, rentalLog }) => {
 
     return 2;
   };
+
+  /**
+   * Function to book a car reservation
+   * @param {date} startDate
+   * @param {date} endDate
+   *
+   */
 
   const bookCar = async (startDate, endDate) => {
     if (validateDates(startDate, endDate) === 0) {
@@ -80,6 +87,7 @@ const InputModal = ({ handleModalToggle, rentalLog }) => {
         <h1 className={cairo.className}> Choose Start and End Dates </h1>
         <div className="datePicker__container">
           <DatePicker
+            pricePerDay={pricePerDay}
             rentalLog={rentalLog}
             error={dateValidationError}
             errorHandler={setDateValidationError}

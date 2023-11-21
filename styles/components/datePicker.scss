@@ -4,6 +4,7 @@
   justify-content: center;
 
   .dates__container {
+    padding-bottom: 12px;
     .error__handler {
       color: $danger-color;
       text-align: center;
@@ -32,6 +33,15 @@
       }
     }
   }
+
+  .price__display {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1.2rem;
+    padding: 12px;
+    border-top: 1px solid $fourth-color-shade;
+  }
+
   & > .actions {
     border-top: 1px solid $fourth-color-shade;
     padding: 12px 0;

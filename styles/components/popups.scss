@@ -30,4 +30,13 @@
     border-bottom: 1px solid $fourth-color-shade;
     padding: 4px;
   }
+
+  & > button {
+    background-color: $fourth-color-shade;
+    border: none;
+    padding: 4px;
+    border-radius: 4px;
+    color: $second-color;
+    cursor: pointer;
+  }
 }

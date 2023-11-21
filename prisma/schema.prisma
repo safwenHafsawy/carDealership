@@ -28,11 +28,10 @@ model carRental {
     userId String
     startDate String
     endDate String
+    totalPrice Int
 
     rentedBy User? @relation(fields: [userId], references: [id])
     carRentalDates Car @relation(fields: [carId], references: [id])
-
-    @@map("Car Rental")
 }
 
 model User {

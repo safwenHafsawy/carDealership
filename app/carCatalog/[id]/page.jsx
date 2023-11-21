@@ -68,6 +68,7 @@ const CarDetails = () => {
         <InputModal
           handleModalToggle={handleBookModal}
           rentalLog={carDetails.rentalLog}
+          pricePerDay={carDetails.pricePerHour}
         />
       ) : (
         <></>
