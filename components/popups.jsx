@@ -43,7 +43,7 @@ const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
    *
    */
 
-  const bookCar = async (startDate, endDate) => {
+  const bookCar = async (startDate, endDate, totalPrice) => {
     if (validateDates(startDate, endDate) === 0) {
       setDateValidationError(
         "Make sure that the end date is after the start date"
@@ -65,6 +65,7 @@ const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
         carId: pathname.split("/")[2],
         startDate,
         endDate,
+        totalPrice,
       }),
     });
 

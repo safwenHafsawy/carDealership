@@ -1,14 +1,16 @@
 .calendar__container {
   position: absolute;
-  background-color: $second_color;
+  background: $fifth-color;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
-  border-radius: 16px;
+  margin-top: 2px;
   width: 80%;
   top: 100%;
   left: 10%;
-  border: 3px solid $first-color;
+  border: 1px solid $fourth-color;
 }
 
 .calendar_option {
@@ -16,10 +18,10 @@
   justify-content: space-between;
   width: 100%;
   height: 50%;
-  padding: 12px;
+  padding: 4px;
   box-sizing: border-box;
-  background-color: $first-color;
-  border-radius: 10px;
+  background-color: $fourth-color;
+  border-radius: 8px;
 
   & > h3 {
     color: $second-color;

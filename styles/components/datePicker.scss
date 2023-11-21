@@ -30,6 +30,14 @@
         border-radius: 8px;
         cursor: pointer;
         width: 50%;
+        transition: all 300ms;
+
+        &:focus {
+          outline: none;
+          transform: scale(1.1);
+          background-color: $third-color;
+          color: $second-color;
+        }
       }
     }
   }

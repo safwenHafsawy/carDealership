@@ -108,7 +108,7 @@ const DatePicker = ({
         <button
           className={work_sans.className}
           onClick={() => {
-            onSubmit(startDate, endDate);
+            onSubmit(startDate, endDate, price);
           }}
         >
           Book Car
