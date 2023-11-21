@@ -56,8 +56,7 @@ const Filters = ({ changeFilters, filterData }) => {
         </div>
       </div>
       <button
-        style={tinWeb.style}
-        className="filters__container-search"
+        className={`${tinWeb.className} filters__container-search`}
         onClick={() => filterData(search, minPrice, maxPrice, available)}
       >
         Search

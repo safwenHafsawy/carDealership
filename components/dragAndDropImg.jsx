@@ -31,7 +31,7 @@ const DragAndDrop = ({ image, changeImage }) => {
         className="dragDrop__input"
         onChange={(e) => changeImage(e.target.files[0])}
       />
-      <label htmlFor="file" className="dragDrop__label" style={tinWeb.style}>
+      <label htmlFor="file" className={`${tinWeb.className} dragDrop__label`}>
         {!image ? "Drag and Drop or Select image here" : image.name}
       </label>
     </div>

@@ -17,7 +17,7 @@ const Home = () => {
           <SectionHeader type="section_header-dark">
             Welcome To Swift Cars
           </SectionHeader>
-          <p style={tinWeb.style}>
+          <p className={tinWeb.className}>
             Where Every Journey Begins. Enjoy hassle-free rentals, a fleet of
             quality vehicles, and the freedom to explore at your pace. We make
             mobility easy.
@@ -44,7 +44,7 @@ const Home = () => {
           <ul>
             {whyUs.map((reason) => {
               return (
-                <li key={reason.key} style={tinWeb.style}>
+                <li key={reason.key} className={tinWeb.className}>
                   <span>{reason.title}: </span>
                   {reason.content}
                 </li>

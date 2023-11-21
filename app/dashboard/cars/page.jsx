@@ -297,7 +297,7 @@ const Cars = () => {
           <div className="options-left">
             <div className="filters_container">
               <div className="filters_option">
-                <span style={tinWeb.style}>Manufacturer: </span>
+                <span className={tinWeb.className}>Manufacturer: </span>
                 <div className="filters_option-set">
                   {existingManufacturers.current.map((manufacturer, index) => {
                     return (
@@ -312,7 +312,7 @@ const Cars = () => {
                 </div>
               </div>
               <div className="filters_option">
-                <span style={tinWeb.style}>Availability: </span>
+                <span className={tinWeb.className}>Availability: </span>
                 <div className="filters_option-set">
                   <CheckboxFilter
                     key={1}
@@ -329,14 +329,14 @@ const Cars = () => {
                 </div>
               </div>
             </div>
-            <button style={tinWeb.style} onClick={filterCars}>
+            <button className={tinWeb.className} onClick={filterCars}>
               &#8711; Filter
             </button>
           </div>
 
           <div className="options-right">
             <button
-              style={tinWeb.style}
+              className={tinWeb.className}
               onClick={() => {
                 resetForm();
                 showForm(true, "Create");

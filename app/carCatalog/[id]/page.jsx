@@ -88,12 +88,12 @@ const CarDetails = () => {
         </div>
 
         <div className="page__section-details">
-          <h2 style={tinWeb.style}>
+          <h2 className={tinWeb.className}>
             Manufacturer:{" "}
-            <span style={tinWeb.style}>{carDetails.manufacturer}</span>
+            <span className={tinWeb.className}>{carDetails.manufacturer}</span>
           </h2>
           <div>
-            <p style={smallTextFont.style}>
+            <p className={smallTextFont.className}>
               Rent price per hour : {carDetails.pricePerHour}$<br />
               Availability :{" "}
               {carDetails.availability
@@ -101,14 +101,14 @@ const CarDetails = () => {
                 : `Available In ${carDetails.nextAv} days`}
             </p>
 
-            <p style={smallTextFont.style}>
+            <p className={smallTextFont.className}>
               Description : <br />
               {carDetails.technicalSpec}
             </p>
           </div>
         </div>
         <div className="options">
-          <button style={tinWeb.style} onClick={bookCar}>
+          <button className={tinWeb.className} onClick={bookCar}>
             Book This Car
           </button>
         </div>
