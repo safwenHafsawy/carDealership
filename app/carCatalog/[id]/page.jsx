@@ -95,10 +95,7 @@ const CarDetails = () => {
           <div>
             <p className={smallTextFont.className}>
               Rent price per hour : {carDetails.pricePerHour}$<br />
-              Availability :{" "}
-              {carDetails.availability
-                ? "Available"
-                : `Available In ${carDetails.nextAv} days`}
+              Availability : {carDetails.availability}
             </p>
 
             <p className={smallTextFont.className}>

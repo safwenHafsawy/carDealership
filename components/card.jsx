@@ -50,10 +50,8 @@ const Card = ({ carDetails, toggleUpdate, handleChange, resetForm }) => {
           <span>Model : </span>
           {model}
         </h1>
-        <p className={tilWeb.className}>
-          Status : {availability ? "Available" : `Available in ${nextAv} days`}
-        </p>
-        <p className={tilWeb.className}>Price Per Hour : {pricePerHour} $</p>
+        <p className={tilWeb.className}>Status : {availability}</p>
+        <p className={tilWeb.className}>Price Per Day : {pricePerHour} $</p>
       </div>
     </div>
   );

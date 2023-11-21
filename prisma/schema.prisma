@@ -14,11 +14,9 @@ model Car {
     id            String  @id @default(uuid())
     model         String
     manufacturer  String
-    availability  Boolean @default(false)
     pricePerHour  Float
     image         String
     technicalSpec String
-    nextAv        Int?
     carRental     carRental[]
 
     @@map(name: "cars")

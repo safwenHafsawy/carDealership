@@ -1,4 +1,5 @@
 import prisma from "@/prisma/prisma";
+import { checkCarAvailability } from "@/utils/carOperation";
 import { addNewImage, removeOldImage } from "@/utils/imageOperations";
 
 /**
@@ -10,6 +11,21 @@ import { addNewImage, removeOldImage } from "@/utils/imageOperations";
 export const GET = async () => {
   try {
     const cars = await prisma.car.findMany();
+
+    /**
+     * fetching rental logs per car and checking availability
+     */
+
+    for (let car of cars) {
+      const rentalLog = await prisma.carRental.findMany({
+        where: {
+          carId: car.id,
+        },
+      });
+
+      car.availability = checkCarAvailability(rentalLog);
+      console.log(car);
+    }
 
     if (cars) return new Response(JSON.stringify(cars), { status: 200 });
     else new Response(null, { status: 400 });
@@ -33,8 +49,6 @@ export const POST = async (req) => {
     const model = carData.get("model");
     const image = carData.get("image");
     const technicalSpec = carData.get("technicalSpec");
-    const nextAv = carData.get("nextAv");
-    const availability = carData.get("availability");
     const pricePerHour = carData.get("pricePerHour");
 
     //handling image
@@ -45,9 +59,7 @@ export const POST = async (req) => {
         manufacturer,
         model,
         technicalSpec,
-        availability: JSON.parse(availability),
         pricePerHour: parseFloat(pricePerHour),
-        nextAv: parseInt(nextAv),
         image: newImagePath.split("public\\")[1],
       },
     });
@@ -104,9 +116,7 @@ export const PATCH = async (req) => {
         manufacturer: carData.manufacturer,
         model: carData.model,
         technicalSpec: carData.technicalSpec,
-        availability: JSON.parse(carData.availability),
         pricePerHour: parseFloat(carData.pricePerHour),
-        nextAv: parseInt(carData.nextAv),
         image: carData.image === "" ? image : newImagePath.split("public\\")[1],
       },
     });

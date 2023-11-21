@@ -1,4 +1,5 @@
 import prisma from "@/prisma/prisma";
+import { checkCarAvailability } from "@/utils/carOperation";
 
 export const GET = async (req, { params }) => {
   try {
@@ -16,8 +17,7 @@ export const GET = async (req, { params }) => {
       });
 
       car.rentalLog = rentalLog;
-
-      console.log(car);
+      car.availability = checkCarAvailability(rentalLog);
 
       return new Response(JSON.stringify(car), { status: 200 });
     }

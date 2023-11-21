@@ -167,37 +167,6 @@ const CarForm = ({
         placeholder="Car Model"
         onChange={(e) => handleChange(e.target.name, e.target.value)}
       />
-      {/**Availability */}
-      <label style={tinWeb.style}>
-        <input
-          type="radio"
-          name="availability"
-          value={true}
-          onChange={(e) => handleChange(e.target.name, e.target.value)}
-          checked={carData.availability}
-        />
-        <span>Available</span>
-      </label>
-
-      <label style={tinWeb.style}>
-        <input
-          id="notAvailable"
-          type="radio"
-          name="availability"
-          value={false}
-          onChange={(e) => handleChange(e.target.name, e.target.value)}
-          checked={!carData.availability}
-        />
-        <span>Not Available</span>
-      </label>
-      <input
-        name="nextAv"
-        value={carData.nextAv}
-        style={tinWeb.style}
-        type="text"
-        placeholder="Days until available (If not Available)"
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
-      />
       <input
         name="pricePerHour"
         value={carData.pricePerHour}
