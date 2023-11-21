@@ -57,7 +57,6 @@
 
   .calendar__dates-date {
     width: 12%;
-    border-radius: 8px;
     font-size: 1.2rem;
     padding: 12px 8px;
     //margin-right: 12px;
@@ -76,6 +75,11 @@
   .date-unavailable {
     color: $fourth-color-shade;
     text-decoration: line-through;
+    cursor: not-allowed;
+  }
+
+  .date-booked {
+    background-color: $third-color;
     cursor: not-allowed;
   }
 }

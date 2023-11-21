@@ -1,5 +1,7 @@
 export const parseDate = (dateString) => {
   const [day, month, year] = dateString.split("/");
+
+  // console.log(new Date(`${year}-${month}`));
   return new Date(`${year}-${month}-${day}`);
 };
 
@@ -16,4 +18,18 @@ export const getListOfMonths = () => {
   }
 
   return months;
+};
+
+export const dateWithinRange = (startDate, endDate, { day, month, year }) => {
+  const currentDate = new Date(`${year}-${month + 1}-${day}`);
+
+  if (
+    parseDate(startDate) <= currentDate &&
+    currentDate <= parseDate(endDate)
+  ) {
+    //console.log(dateParsed);
+    return true;
+  }
+
+  return false;
 };

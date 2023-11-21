@@ -13,7 +13,7 @@ const options = {
   day: "2-digit",
 };
 
-const DatePicker = ({ error, errorHandler, onSubmit }) => {
+const DatePicker = ({ error, errorHandler, onSubmit, rentalLog }) => {
   const [startDate, setStartDate] = useState(
     new Date().toLocaleString(locale, options)
   );
@@ -65,7 +65,11 @@ const DatePicker = ({ error, errorHandler, onSubmit }) => {
         </div>
       </div>
 
-      {toggleCalendar[0] ? <Calendar selectDate={onSelect} /> : <></>}
+      {toggleCalendar[0] ? (
+        <Calendar rentalLog={rentalLog} selectDate={onSelect} />
+      ) : (
+        <></>
+      )}
       <div className="actions">
         <button
           className={work_sans.className}

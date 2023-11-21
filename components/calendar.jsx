@@ -4,11 +4,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Overlock } from "next/font/google";
 
-import { getMonthNumberOfDays, getListOfMonths } from "@/utils/dateOperations";
+import {
+  getMonthNumberOfDays,
+  getListOfMonths,
+  dateWithinRange,
+} from "@/utils/dateOperations";
 
 const work_sans = Overlock({ weight: "700", subsets: ["latin"] });
 
-const Calendar = ({ selectDate }) => {
+const Calendar = ({ selectDate, rentalLog }) => {
   const months = useRef([]);
   const DateObject = new Date();
   const [year, setYear] = useState(DateObject.getFullYear());
@@ -83,14 +87,26 @@ const Calendar = ({ selectDate }) => {
    */
 
   const determineDateAvailability = (day) => {
-    // check the comments
+    // block the days that already passed from current month
     if (currentMonth === DateObject.getMonth()) {
-      // block the days that already passed from current month
       if (day < DateObject.getDate()) {
-        return false;
+        return "date-unavailable";
       }
     }
-    return true;
+    // block the days that have already been booked
+    for (let log of rentalLog) {
+      if (
+        dateWithinRange(log.startDate, log.endDate, {
+          day,
+          month: month.number,
+          year,
+        })
+      ) {
+        return "date-booked";
+      }
+    }
+
+    return "date-available";
   };
 
   return (
@@ -108,14 +124,12 @@ const Calendar = ({ selectDate }) => {
         {listOfDays.map((day, i) => {
           return (
             <span
-              className={`${work_sans.className} calendar__dates-date ${
-                determineDateAvailability(day)
-                  ? "date-available"
-                  : "date-unavailable"
-              }`}
+              className={`${
+                work_sans.className
+              } calendar__dates-date ${determineDateAvailability(day)}`}
               key={i}
               onClick={
-                determineDateAvailability(day)
+                determineDateAvailability(day) === "date-available"
                   ? (e) => selectDate(year, month.number, e.target.textContent)
                   : null
               }

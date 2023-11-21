@@ -15,6 +15,7 @@ const smallTextFont = Andika({ weight: "700", subsets: ["latin"] });
 
 const CarDetails = () => {
   const [carDetails, setCarDetails] = useState({});
+  const [bookModal, setBookModal] = useState(false);
   const pathname = usePathname();
   const carId = useRef(pathname.split("/")[2]);
   const { data: session } = useSession();
@@ -49,12 +50,28 @@ const CarDetails = () => {
   }, []);
 
   const bookCar = () => {
-    if (!session) router.push("/login");
+    if (!session) {
+      router.push("/login");
+      return;
+    }
+
+    setBookModal(true);
+  };
+
+  const handleBookModal = () => {
+    setBookModal(!bookModal);
   };
 
   return (
     <section className="page_sections-full">
-      <InputModal />
+      {bookModal ? (
+        <InputModal
+          handleModalToggle={handleBookModal}
+          rentalLog={carDetails.rentalLog}
+        />
+      ) : (
+        <></>
+      )}
       <div className="page__sections__leftSide car__image">
         <Image
           src={`/${carDetails.image}`}
