@@ -18,8 +18,8 @@
 
 .popup {
   position: relative;
-  margin-top: 4%;
-  width: 40%;
+  margin-top: 10%;
+  width: 35%;
   background: $fifth-color;
   border-radius: 16px;
   box-shadow: 0 4px 20px $second-color;
@@ -53,7 +53,8 @@
   position: fixed;
   border-radius: 4px;
   z-index: 12;
-  top: 12%;
+  top: 1%;
+  left: 35%;
   width: 25%;
   height: 4rem;
   padding: 4px 8px;
@@ -85,6 +86,14 @@
 
 .toast__container-danger {
   background-color: $danger-color;
+
+  & > span {
+    color: $second-color;
+  }
+}
+
+.toast__container-success {
+  background-color: $success-color;
 
   & > span {
     color: $second-color;

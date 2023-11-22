@@ -98,6 +98,8 @@ const CarDetails = () => {
           handleModalToggle={handleBookModal}
           rentalLog={carDetails.rentalLog}
           pricePerDay={carDetails.pricePerHour}
+          showToast={showToast}
+          toggleToast={setToggleToast}
         />
       ) : (
         <></>

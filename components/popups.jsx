@@ -7,17 +7,21 @@ import { Lato, Overlock } from "next/font/google";
 
 import DatePicker from "./datePicker";
 import { parseDate } from "@/utils/dateOperations";
-import { hideToast, showToast } from "@/lib/toastFunctions";
-import useToast from "@/hooks/useToast";
+import { hideToast } from "@/lib/toastFunctions";
 
 const mainHeaderFont = Lato({ weight: "900", subsets: ["latin"] });
 const secondaryHeaderFont = Overlock({ weight: "700", subsets: ["latin"] });
 
-const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
+const InputModal = ({
+  handleModalToggle,
+  rentalLog,
+  pricePerDay,
+  toggleToast,
+  showToast,
+}) => {
   const { data: session } = useSession();
   const pathname = usePathname();
   const [dateValidationError, setDateValidationError] = useState("");
-  const [toggleToast, setToggleToast] = useToast();
 
   const validateDates = (startDate, endDate) => {
     const startDateParsed = parseDate(startDate);
@@ -75,9 +79,15 @@ const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
 
     const data = await response.json();
 
-    if (response.status === 201) handleModalToggle();
-    else if (response.status === 400 || response.status === 500)
-      showToast(data.message, "danger", setToggleToast);
+    if (response.status === 201) {
+      showToast(
+        `BooKed Successfully from ${startDate} - ${endDate}`,
+        "success",
+        toggleToast
+      );
+      handleModalToggle();
+    } else if (response.status === 400 || response.status === 500)
+      showToast(data.message, "danger", toggleToast);
   };
 
   return (
@@ -85,15 +95,6 @@ const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
       className="popup_container"
       //onClick={(e) => console.log(e.target.name)}
     >
-      {toggleToast.status ? (
-        <ToastPopup
-          toastText={toggleToast.message}
-          toastType={toggleToast.type}
-          toggleToast={setToggleToast}
-        />
-      ) : (
-        <></>
-      )}
       <div className="popup">
         <button
           className={mainHeaderFont.className}
@@ -119,20 +120,8 @@ const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
   );
 };
 
-// const ErrorModal = ({ errorText, toggleModal }) => {
-//   return (
-//     <div className="popup_container">
-//       <div className="popup">
-//         <h1>{errorText}</h1>
-//       </div>
-//       <div className="actions">
-//         <button>I Understand</button>
-//       </div>
-//     </div>
-//   );
-// };
-
 const ToastPopup = ({ toastText, toastType, toggleToast }) => {
+  console.log("Toast");
   return (
     <div className={`toast__container toast__container-${toastType}`}>
       <span className={secondaryHeaderFont.className}>{toastText}</span>

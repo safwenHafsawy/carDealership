@@ -24,7 +24,6 @@ export const GET = async () => {
       });
 
       car.availability = checkCarAvailability(rentalLog);
-      console.log(car);
     }
 
     if (cars) return new Response(JSON.stringify(cars), { status: 200 });

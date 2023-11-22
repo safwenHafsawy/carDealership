@@ -120,6 +120,7 @@ const Cars = () => {
     try {
       await validateForm(carData, operation);
 
+      //handling form data
       const formData = new FormData();
       for (let data in carData) {
         formData.append(data, carData[data]);
@@ -173,22 +174,19 @@ const Cars = () => {
             } else {
               setListOfCars((prevState) => [...prevState, data]);
             }
-
+            showToast(
+              `Car ${
+                operation === "POST" ? "created" : "updated"
+              } successfully`,
+              "success",
+              setToggleToast
+            );
             setToggleForm(false);
             break;
         }
       }
     } catch (error) {
-      //  (error);
-      if (
-        error === "Make sure to fill all fields" ||
-        error ===
-          "If the car is not available, make sure to specify days until available" ||
-        error ===
-          "If car is currently available , make sure to remove days until available"
-      ) {
-        setFormValidationErrors(error);
-      }
+      setFormValidationErrors(error);
     }
   };
 
@@ -196,9 +194,6 @@ const Cars = () => {
    * Handling form input changes
    */
   const handleChange = (name, value) => {
-    if (name === "availability") {
-      value = JSON.parse(value);
-    }
     setCarData((prevState) => ({
       ...prevState,
       [name]: value,
