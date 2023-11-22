@@ -1,3 +1,7 @@
+/**
+ * Popup Design
+ */
+
 .popup_container {
   position: fixed;
   top: 0;
@@ -38,5 +42,51 @@
     border-radius: 4px;
     color: $second-color;
     cursor: pointer;
+  }
+}
+
+/** 
+ * Toast Design
+ */
+
+.toast__container {
+  position: fixed;
+  border-radius: 4px;
+  z-index: 12;
+  top: 10%;
+  width: 20%;
+  height: 4rem;
+  padding: 4px;
+
+  display: grid;
+  grid-template-columns: 85% 15%;
+  grid-template-rows: 1fr;
+  grid-column-gap: 2px;
+  grid-row-gap: 0px;
+
+  & > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+  }
+
+  & > button {
+    padding: 4px;
+    background-color: transparent;
+    border: none;
+    border-left: 1px solid $fifth-color;
+    color: $second-color;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+}
+
+.toast__container-danger {
+  background-color: $danger-color;
+
+  & > span {
+    color: $second-color;
   }
 }

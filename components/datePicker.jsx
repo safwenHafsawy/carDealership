@@ -5,7 +5,7 @@ import Calendar from "./calendar";
 import { Overlock, Andika } from "next/font/google";
 import { parseDate, millisecondsToDays } from "@/utils/dateOperations";
 
-const work_sans = Overlock({ weight: "700", subsets: ["latin"] });
+const secondaryHeaderFont = Overlock({ weight: "700", subsets: ["latin"] });
 const regular_text = Andika({ weight: "400", subsets: ["latin"] });
 const locale = "en-GB";
 const options = {
@@ -70,18 +70,18 @@ const DatePicker = ({
           {error}
         </div>
         <div className="date__container-date">
-          <span className={work_sans.className}>Start Date</span>
+          <span className={secondaryHeaderFont.className}>Start Date</span>
           <input
-            className={work_sans.className}
+            className={secondaryHeaderFont.className}
             onClick={() => handleToggleCalendar("Start")}
             value={startDate}
             readOnly
           />
         </div>
         <div className="date__container-date">
-          <span className={work_sans.className}>End Date</span>
+          <span className={secondaryHeaderFont.className}>End Date</span>
           <input
-            className={work_sans.className}
+            className={secondaryHeaderFont.className}
             onClick={() => handleToggleCalendar("End")}
             value={endDate}
             readOnly
@@ -94,7 +94,7 @@ const DatePicker = ({
       ) : (
         <></>
       )}
-      <div className={`${work_sans.className} price__display`}>
+      <div className={`${secondaryHeaderFont.className} price__display`}>
         <span>Total Price : {price} $</span>
         <span>
           Duration :{" "}
@@ -106,7 +106,7 @@ const DatePicker = ({
       </div>
       <div className="actions">
         <button
-          className={work_sans.className}
+          className={secondaryHeaderFont.className}
           onClick={() => {
             onSubmit(startDate, endDate, price);
           }}

@@ -1,12 +1,19 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { AuthForm } from "@/components/form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
+import { ToastPopup } from "@/components/popups";
+
 const Login = () => {
   const router = useRouter();
+  const [toggleToast, setToggleToast] = useState({
+    status: false,
+    message: "",
+    type: "",
+  });
 
   const handleLogin = async (userData) => {
     try {
@@ -18,15 +25,32 @@ const Login = () => {
       if (response.ok) {
         router.push("/");
       } else {
-        alert("nono");
+        if (response.status === 401) showError("Invalid credentials", "danger");
       }
     } catch (error) {
       alert(error.message);
     }
   };
 
+  const showError = (message, type) => {
+    setToggleToast({ status: true, message: message, type: type });
+  };
+
+  const closeError = () => {
+    setToggleToast({ status: false, message: "", type: "" });
+  };
+
   return (
     <section className=" page_sections page__section__dark">
+      {toggleToast.status ? (
+        <ToastPopup
+          toastText={toggleToast.message}
+          toastType={toggleToast.type}
+          toggleToast={closeError}
+        />
+      ) : (
+        <></>
+      )}
       <AuthForm
         type="Login"
         items={[

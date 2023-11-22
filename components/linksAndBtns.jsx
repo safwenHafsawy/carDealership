@@ -2,11 +2,11 @@ import React from "react";
 import Link from "next/link";
 import { Lato } from "next/font/google";
 
-const cairo = Lato({ weight: "900", subsets: ["latin"] });
+const mainHeaderFont = Lato({ weight: "900", subsets: ["latin"] });
 
 const NavLink = ({ type, hrf, children }) => {
   return (
-    <Link style={cairo.style} className={type} href={hrf}>
+    <Link style={mainHeaderFont.style} className={type} href={hrf}>
       {children}
     </Link>
   );

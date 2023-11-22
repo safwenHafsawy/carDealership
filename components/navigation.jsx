@@ -6,8 +6,8 @@ import Image from "next/image";
 import { Lato, Luckiest_Guy } from "next/font/google";
 import { signOut, useSession } from "next-auth/react";
 
-const cairo = Lato({ weight: "900", subsets: ["latin"] });
-const brand = Luckiest_Guy({ weight: "400", subsets: ["latin"] });
+const mainHeaderFont = Lato({ weight: "900", subsets: ["latin"] });
+const brandFont = Luckiest_Guy({ weight: "400", subsets: ["latin"] });
 
 function Navigation() {
   const [toggle, setToggle] = useState(false);
@@ -19,10 +19,8 @@ function Navigation() {
 
   return (
     <nav className="navigation">
-      <h2 style={brand.style} className="brand__name">
-        Swift Cars
-      </h2>
-      <ul style={cairo.style} className="navigation__list">
+      <h2 className={`${brandFont.className} brand__name`}>Swift Cars</h2>
+      <ul className={`${mainHeaderFont.className} navigation__list`}>
         {session ? (
           <div className="navigation__list__item dropDownMenu">
             <Image

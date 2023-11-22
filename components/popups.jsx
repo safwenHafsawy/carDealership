@@ -3,12 +3,13 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { Lato } from "next/font/google";
+import { Lato, Overlock } from "next/font/google";
 
 import DatePicker from "./datePicker";
 import { parseDate } from "@/utils/dateOperations";
 
-const cairo = Lato({ weight: "900", subsets: ["latin"] });
+const mainHeaderFont = Lato({ weight: "900", subsets: ["latin"] });
+const secondaryHeaderFont = Overlock({ weight: "700", subsets: ["latin"] });
 
 const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
   const { data: session } = useSession();
@@ -82,10 +83,16 @@ const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
       //onClick={(e) => console.log(e.target.name)}
     >
       <div className="popup">
-        <button className={cairo.className} onClick={handleModalToggle}>
+        <button
+          className={mainHeaderFont.className}
+          onClick={handleModalToggle}
+        >
           close
         </button>
-        <h1 className={cairo.className}> Choose Start and End Dates </h1>
+        <h1 className={mainHeaderFont.className}>
+          {" "}
+          Choose Start and End Dates{" "}
+        </h1>
         <div className="datePicker__container">
           <DatePicker
             pricePerDay={pricePerDay}
@@ -100,8 +107,26 @@ const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
   );
 };
 
-const ErrorModal = () => {
-  return <div>popups</div>;
+// const ErrorModal = ({ errorText, toggleModal }) => {
+//   return (
+//     <div className="popup_container">
+//       <div className="popup">
+//         <h1>{errorText}</h1>
+//       </div>
+//       <div className="actions">
+//         <button>I Understand</button>
+//       </div>
+//     </div>
+//   );
+// };
+
+const ToastPopup = ({ toastText, toastType, toggleToast }) => {
+  return (
+    <div className={`toast__container toast__container-${toastType}`}>
+      <span className={secondaryHeaderFont.className}>{toastText}</span>
+      <button onClick={toggleToast}>&#215;</button>
+    </div>
+  );
 };
 
-export { InputModal, ErrorModal };
+export { InputModal, ToastPopup };

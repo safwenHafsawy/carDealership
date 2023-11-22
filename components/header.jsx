@@ -1,15 +1,17 @@
 import React from "react";
 import { Lato, Overlock } from "next/font/google";
 
-const cairo = Lato({ weight: "900", subsets: ["latin"] });
-const work_sans = Overlock({ weight: "700", subsets: ["latin"] });
+const mainHeaderFont = Lato({ weight: "900", subsets: ["latin"] });
+const secondaryHeaderFont = Overlock({ weight: "700", subsets: ["latin"] });
 
 const SectionHeader = ({ type, children }) => {
-  return <h1 className={`${cairo.className} ${type}`}>{children}</h1>;
+  return <h1 className={`${mainHeaderFont.className} ${type}`}>{children}</h1>;
 };
 
 const SubHeader = ({ type, children }) => {
-  return <h2 className={`${work_sans.className} ${type}`}>{children}</h2>;
+  return (
+    <h2 className={`${secondaryHeaderFont.className} ${type}`}>{children}</h2>
+  );
 };
 
 export { SectionHeader, SubHeader };
