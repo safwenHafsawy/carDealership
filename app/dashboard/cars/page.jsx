@@ -1,17 +1,27 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import useToast from "@/hooks/useToast";
 import { Overlock } from "next/font/google";
 
 import { CarForm } from "@/components/form";
 import Card from "@/components/card";
+import { ToastPopup } from "@/components/popups";
 import { SectionHeader, SubHeader } from "@/components/header";
 import CheckboxFilter from "@/components/filters/checkbox";
+
+import { showToast } from "@/lib/toastFunctions";
 
 const tinWeb = Overlock({ weight: "700", subsets: ["latin"] });
 
 const Cars = () => {
   const allCars = useRef([]);
+  const filters = useRef({
+    manufacturer: [],
+    availability: [],
+  });
+  const existingManufacturers = useRef([]);
+
   const [listOfCars, setListOfCars] = useState([]);
   const [toggleForm, setToggleForm] = useState(false);
   const [carData, setCarData] = useState({
@@ -26,12 +36,7 @@ const Cars = () => {
   const [formTitle, setFormTitle] = useState("");
   const [formValidationErrors, setFormValidationErrors] = useState("");
 
-  const filters = useRef({
-    manufacturer: [],
-    availability: [],
-  });
-
-  const existingManufacturers = useRef([]);
+  const [toggleToast, setToggleToast] = useToast();
 
   /**
    * Fetching Car on component startup
@@ -47,10 +52,7 @@ const Cars = () => {
 
     //getting the list of available manufacturers
     allCars.current.forEach((car) => {
-      //console.log(car);
       if (!existingManufacturers.current.includes(car.manufacturer)) {
-        //console.log("No manufacturer");
-        //console.log(existingManufacturers);
         existingManufacturers.current.push(car.manufacturer);
       }
     });
@@ -131,10 +133,10 @@ const Cars = () => {
 
         switch (response.status) {
           case 401:
-            alert("could not remove this car");
+            showToast("could not remove this car", "danger", setToggleToast);
             break;
           case 500:
-            alert("Internal Server Error");
+            showToast("Internal Server Error", "danger", setToggleToast);
             break;
           default:
             const filteredList = listOfCars.filter(
@@ -152,10 +154,14 @@ const Cars = () => {
 
         switch (response.status) {
           case 401:
-            alert("could not add/update this car");
+            showToast(
+              "could not add/update this car",
+              "danger",
+              setToggleToast
+            );
             break;
           case 500:
-            alert("Internal Server Error");
+            showToast("Internal Server Error", "danger", setToggleToast);
             break;
           default:
             const data = await response.json();
@@ -277,6 +283,15 @@ const Cars = () => {
 
   return (
     <section className="page_sections-full">
+      {toggleToast.status ? (
+        <ToastPopup
+          toastText={toggleToast.message}
+          toastType={toggleToast.type}
+          toggleToast={setToggleToast}
+        />
+      ) : (
+        <></>
+      )}
       <div className="addCar">
         <CarForm
           title={formTitle}
@@ -286,6 +301,8 @@ const Cars = () => {
           submitForm={handleOperation}
           toggleUpdate={showForm}
           validationsError={formValidationErrors}
+          showToast={showToast}
+          toggleToast={setToggleToast}
         />
       </div>
       <div className="carCollection">

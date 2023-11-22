@@ -8,7 +8,14 @@ import { Titillium_Web } from "next/font/google";
 
 const tilWeb = Titillium_Web({ weight: "400", subsets: ["latin"] });
 
-const Card = ({ carDetails, toggleUpdate, handleChange, resetForm }) => {
+const Card = ({
+  carDetails,
+  toggleUpdate,
+  handleChange,
+  resetForm,
+  showToast,
+  toggleToast,
+}) => {
   const router = useRouter();
   const pathname = usePathname();
   const { data: session } = useSession();
@@ -17,8 +24,10 @@ const Card = ({ carDetails, toggleUpdate, handleChange, resetForm }) => {
   const goToCar = () => {
     if (session?.user.role === "ADMIN") {
       if (pathname === "/carCatalog") {
-        alert(
-          "if you want to update this car details, please use the dashboard"
+        showToast(
+          "if you want to update this car details, please use the dashboard",
+          "danger",
+          toggleToast
         );
         return;
       } else if (pathname === "/dashboard/cars") {

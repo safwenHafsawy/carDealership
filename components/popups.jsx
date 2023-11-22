@@ -8,6 +8,7 @@ import { Lato, Overlock } from "next/font/google";
 import DatePicker from "./datePicker";
 import { parseDate } from "@/utils/dateOperations";
 import { hideToast, showToast } from "@/lib/toastFunctions";
+import useToast from "@/hooks/useToast";
 
 const mainHeaderFont = Lato({ weight: "900", subsets: ["latin"] });
 const secondaryHeaderFont = Overlock({ weight: "700", subsets: ["latin"] });
@@ -16,6 +17,7 @@ const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
   const { data: session } = useSession();
   const pathname = usePathname();
   const [dateValidationError, setDateValidationError] = useState("");
+  const [toggleToast, setToggleToast] = useToast();
 
   const validateDates = (startDate, endDate) => {
     const startDateParsed = parseDate(startDate);
@@ -75,7 +77,7 @@ const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
 
     if (response.status === 201) handleModalToggle();
     else if (response.status === 400 || response.status === 500)
-      alert(data.message);
+      showToast(data.message, "danger", setToggleToast);
   };
 
   return (
@@ -83,6 +85,15 @@ const InputModal = ({ handleModalToggle, rentalLog, pricePerDay }) => {
       className="popup_container"
       //onClick={(e) => console.log(e.target.name)}
     >
+      {toggleToast.status ? (
+        <ToastPopup
+          toastText={toggleToast.message}
+          toastType={toggleToast.type}
+          toggleToast={setToggleToast}
+        />
+      ) : (
+        <></>
+      )}
       <div className="popup">
         <button
           className={mainHeaderFont.className}

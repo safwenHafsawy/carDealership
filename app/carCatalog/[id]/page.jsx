@@ -11,6 +11,7 @@ import { SectionHeader } from "@/components/header";
 import { InputModal } from "@/components/popups";
 import { ToastPopup } from "@/components/popups";
 import { Overlock, Andika } from "next/font/google";
+import { showToast } from "@/lib/toastFunctions";
 
 const tinWeb = Overlock({ weight: "900", subsets: ["latin"] });
 const smallTextFont = Andika({ weight: "700", subsets: ["latin"] });
@@ -42,13 +43,21 @@ const CarDetails = () => {
         setCarDetails({ ...data });
       }
       if (response.status === 404) {
-        alert("Not Found");
+        showToast("Car not found", "danger", setToggleToast);
       }
       if (response.status === 500) {
-        alert("internal server error");
+        showToast(
+          "There was an error on our side ! please try again",
+          "danger",
+          setToggleToast
+        );
       }
     } catch (err) {
-      console.log(err);
+      showToast(
+        "There was an error on our side ! please try again",
+        "danger",
+        setToggleToast
+      );
     }
   };
 
@@ -75,6 +84,15 @@ const CarDetails = () => {
 
   return (
     <section className="page_sections-full">
+      {toggleToast.status ? (
+        <ToastPopup
+          toastText={toggleToast.message}
+          toastType={toggleToast.type}
+          toggleToast={setToggleToast}
+        />
+      ) : (
+        <></>
+      )}
       {bookModal ? (
         <InputModal
           handleModalToggle={handleBookModal}

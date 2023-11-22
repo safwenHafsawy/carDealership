@@ -1,11 +1,15 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
+import useToast from "@/hooks/useToast";
 
 import Card from "@/components/card";
 import { SectionHeader } from "@/components/header";
 import Filters from "@/components/filters";
 import CustomShapeDivider from "@/components/custom_shape_divider";
+import { ToastPopup } from "@/components/popups";
+
+import { showToast } from "@/lib/toastFunctions";
 
 const CarCatalog = () => {
   const allCarsList = useRef([]);
@@ -16,6 +20,7 @@ const CarCatalog = () => {
     availability: "",
   });
   const [carsList, setCarsList] = useState([]);
+  const [toggleToast, setToggleToast] = useToast();
 
   /**
    * fetch cars
@@ -92,6 +97,15 @@ const CarCatalog = () => {
 
   return (
     <section className="page_sections car__catalog">
+      {toggleToast.status ? (
+        <ToastPopup
+          toastText={toggleToast.message}
+          toastType={toggleToast.type}
+          toggleToast={setToggleToast}
+        />
+      ) : (
+        <></>
+      )}
       <div className="page__sections__leftSide catalog__leftSide">
         <Filters changeFilters={handleFilterChange} filterData={filterData} />
       </div>
@@ -102,7 +116,14 @@ const CarCatalog = () => {
         </SectionHeader>
         <div id="card_section" className="card__container">
           {carsList.map((car) => {
-            return <Card key={car.id} carDetails={car} />;
+            return (
+              <Card
+                key={car.id}
+                carDetails={car}
+                showToast={showToast}
+                toggleToast={setToggleToast}
+              />
+            );
           })}
         </div>
       </div>

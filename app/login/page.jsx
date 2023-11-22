@@ -37,7 +37,11 @@ const Login = () => {
           );
       }
     } catch (error) {
-      alert(error.message);
+      showToast(
+        "There was an error on our side ! please try again",
+        "danger",
+        setToggleToast
+      );
     }
   };
 

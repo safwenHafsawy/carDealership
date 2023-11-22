@@ -11,7 +11,7 @@ import DragAndDrop from "./dragAndDropImg";
 const tinWeb = Overlock({ weight: "700", subsets: ["latin"] });
 const acceptedTypes = ["image/jpeg", "image/png"];
 
-const AuthForm = ({ type, items, onclick }) => {
+const AuthForm = ({ type, items, onclick, showToast, toggleToast }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [formValues, setFormValues] = useState({});
@@ -33,9 +33,12 @@ const AuthForm = ({ type, items, onclick }) => {
   const handleFile = (file) => {
     if (acceptedTypes.includes(file.type)) {
       SetImage(file);
-      console.log(file);
     } else {
-      alert("Please Select and image of type png or jpeg");
+      showToast(
+        "Please Select and image of type png or jpeg",
+        "danger",
+        toggleToast
+      );
     }
   };
 
@@ -118,12 +121,18 @@ const CarForm = ({
   submitForm,
   toggleUpdate,
   validationsError,
+  showToast,
+  toggleToast,
 }) => {
   const handleFile = (file) => {
     if (acceptedTypes.includes(file.type)) {
       handleChange("image", file);
     } else {
-      alert("Please Select and image of type png or jpeg");
+      showToast(
+        "Please Select and image of type png or jpeg",
+        "danger",
+        toggleToast
+      );
     }
   };
 
