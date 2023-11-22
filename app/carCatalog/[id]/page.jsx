@@ -5,22 +5,29 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import useToast from "@/hooks/useToast";
 
 import { SectionHeader } from "@/components/header";
 import { InputModal } from "@/components/popups";
+import { ToastPopup } from "@/components/popups";
 import { Overlock, Andika } from "next/font/google";
 
 const tinWeb = Overlock({ weight: "900", subsets: ["latin"] });
 const smallTextFont = Andika({ weight: "700", subsets: ["latin"] });
 
 const CarDetails = () => {
-  const [carDetails, setCarDetails] = useState({});
-  const [bookModal, setBookModal] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const carId = useRef(pathname.split("/")[2]);
   const { data: session } = useSession();
-  const router = useRouter();
 
+  const [carDetails, setCarDetails] = useState({});
+  const [bookModal, setBookModal] = useState(false);
+  const [toggleToast, setToggleToast] = useToast();
+
+  /**
+   * Fetch Car Details
+   */
   const fetchCarData = async () => {
     try {
       const response = await fetch(`/api/car/${carId.current}`, {
@@ -57,6 +64,10 @@ const CarDetails = () => {
 
     setBookModal(true);
   };
+
+  /**
+   * Modals and popups
+   */
 
   const handleBookModal = () => {
     setBookModal(!bookModal);

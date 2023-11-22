@@ -7,6 +7,7 @@ import { Lato, Overlock } from "next/font/google";
 
 import DatePicker from "./datePicker";
 import { parseDate } from "@/utils/dateOperations";
+import { hideToast, showToast } from "@/lib/toastFunctions";
 
 const mainHeaderFont = Lato({ weight: "900", subsets: ["latin"] });
 const secondaryHeaderFont = Overlock({ weight: "700", subsets: ["latin"] });
@@ -124,7 +125,7 @@ const ToastPopup = ({ toastText, toastType, toggleToast }) => {
   return (
     <div className={`toast__container toast__container-${toastType}`}>
       <span className={secondaryHeaderFont.className}>{toastText}</span>
-      <button onClick={toggleToast}>&#215;</button>
+      <button onClick={() => hideToast(toggleToast)}>&#215;</button>
     </div>
   );
 };

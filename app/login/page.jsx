@@ -1,19 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { AuthForm } from "@/components/form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import useToast from "@/hooks/useToast";
 
 import { ToastPopup } from "@/components/popups";
+import { showToast } from "@/lib/toastFunctions";
 
 const Login = () => {
   const router = useRouter();
-  const [toggleToast, setToggleToast] = useState({
-    status: false,
-    message: "",
-    type: "",
-  });
+  const [toggleToast, setToggleToast] = useToast();
 
   const handleLogin = async (userData) => {
     try {
@@ -25,19 +23,22 @@ const Login = () => {
       if (response.ok) {
         router.push("/");
       } else {
-        if (response.status === 401) showError("Invalid credentials", "danger");
+        if (response.status === 401)
+          showToast(
+            "Invalid credentials ! please check the information you provided",
+            "danger",
+            setToggleToast
+          );
+        else if (response.status === 500)
+          showToast(
+            "There was an error on our side ! please try again",
+            "danger",
+            setToggleToast
+          );
       }
     } catch (error) {
       alert(error.message);
     }
-  };
-
-  const showError = (message, type) => {
-    setToggleToast({ status: true, message: message, type: type });
-  };
-
-  const closeError = () => {
-    setToggleToast({ status: false, message: "", type: "" });
   };
 
   return (
@@ -46,7 +47,7 @@ const Login = () => {
         <ToastPopup
           toastText={toggleToast.message}
           toastType={toggleToast.type}
-          toggleToast={closeError}
+          toggleToast={setToggleToast}
         />
       ) : (
         <></>
