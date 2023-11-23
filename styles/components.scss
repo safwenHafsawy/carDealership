@@ -257,7 +257,8 @@
   width: 100%;
   min-height: 50%;
   position: relative;
-  padding: 0 1%;
+  padding: 1%;
+  padding-top: 2%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -737,3 +738,8 @@
  * Calendar 
  */
 @import "./components/calendar.scss";
+
+/**
+ * Loader
+ */
+@import "./components/loader.scss";

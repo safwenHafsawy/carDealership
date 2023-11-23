@@ -2,45 +2,36 @@
  * Popup Design
  */
 
+// Full page container styling for the popup container
 .popup_container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: $fourth-color-shade;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  z-index: 15;
+  @include fullPageContainer;
 }
 
+// Styling for the main popup
 .popup {
   position: relative;
-  margin-top: 10%;
+  margin-top: 10%; // Adjusting top margin for positioning
   width: 35%;
-  background: $fifth-color;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px $second-color;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-radius: 8px;
-  padding: 4px;
-  border: 1px solid $fourth-color;
+  background: $fourth-color;
+  border-radius: 16px; // Rounded corners
+  box-shadow: 0 0 5px $third-color; // Shadow for a lifted effect
+  border-radius: 8px; // Rounded corners
+  padding: 4px; // Padding for inner content
+  border: 1px solid $fourth-color; // Border color
 
   & > h1 {
     text-align: center;
-    border-bottom: 1px solid $fourth-color-shade;
-    padding: 4px;
+    border-bottom: 1px solid $fifth-color; // Border for header
+    padding: 4px; // Padding for header
+    color: $second-color;
   }
 
   & > button {
-    background-color: $fourth-color-shade;
+    background-color: $second-color; // Button background color
     border: none;
     padding: 4px;
-    border-radius: 4px;
-    color: $second-color;
+    border-radius: 4px; // Rounded corners
+    color: $fourth-color;
     cursor: pointer;
   }
 }
@@ -49,18 +40,19 @@
  * Toast Design
  */
 
+// Styling for the toast container
 .toast__container {
   position: fixed;
-  border-radius: 4px;
+  border-radius: 4px; // Rounded corners
   z-index: 12;
-  top: 1%;
+  top: 2%;
   left: 35%;
   width: 25%;
   height: 4rem;
   padding: 4px 8px;
 
   display: grid;
-  grid-template-columns: 90% 10%;
+  grid-template-columns: 90% 10%; // Grid layout for content and button
   grid-template-rows: 1fr;
   grid-column-gap: 2px;
   grid-row-gap: 0px;
@@ -84,6 +76,7 @@
   }
 }
 
+// Styling for danger-themed toast container
 .toast__container-danger {
   background-color: $danger-color;
 
@@ -92,6 +85,7 @@
   }
 }
 
+// Styling for success-themed toast container
 .toast__container-success {
   background-color: $success-color;
 

@@ -18,6 +18,7 @@ const InputModal = ({
   pricePerDay,
   toggleToast,
   showToast,
+  handleLoading,
 }) => {
   const { data: session } = useSession();
   const pathname = usePathname();
@@ -63,6 +64,7 @@ const InputModal = ({
       );
       return;
     }
+    handleLoading(true);
     const response = await fetch(`/api/book/`, {
       method: "POST",
       headers: {
@@ -78,6 +80,7 @@ const InputModal = ({
     });
 
     const data = await response.json();
+    handleLoading(false);
 
     if (response.status === 201) {
       showToast(
@@ -85,9 +88,9 @@ const InputModal = ({
         "success",
         toggleToast
       );
-      handleModalToggle();
     } else if (response.status === 400 || response.status === 500)
-      showToast(data.message, "danger", toggleToast);
+      handleModalToggle();
+    showToast(data.message, "danger", toggleToast);
   };
 
   return (

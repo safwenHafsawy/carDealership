@@ -1,0 +1,34 @@
+.loader__container {
+  @include fullPageContainer;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 150px;
+  height: 150px;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    #262627 0deg,
+    #6f51e9 360deg
+  );
+  animation: spin 1.5s linear infinite;
+  display: flex;
+  justify-content: center;
+
+  &::before {
+    content: "";
+    border-radius: 50%;
+    width: 80%;
+    height: 80%;
+    background-color: #262627;
+  }
+}
+
+.loader__text {
+  margin-top: 10px;
+  color: $second-color;
+  font-size: 1.2rem;
+}

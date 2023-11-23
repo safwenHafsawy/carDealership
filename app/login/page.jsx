@@ -1,25 +1,39 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { AuthForm } from "@/components/form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import useToast from "@/hooks/useToast";
 
+/**
+ * importing components
+ */
 import { ToastPopup } from "@/components/popups";
 import { showToast } from "@/lib/toastFunctions";
+import Loader from "@/components/loader";
 
+/**
+ *
+ * @returns JSX DOM elements
+ */
 const Login = () => {
   const router = useRouter();
   const [toggleToast, setToggleToast] = useToast();
+  const [loading, setLoading] = useState(false);
 
+  /**
+   * Handles the login process when the form is submitted.
+   * @param {Object} userData - User credentials entered in the login form.
+   */
   const handleLogin = async (userData) => {
     try {
+      setLoading(true);
       const response = await signIn("credentials", {
         data: JSON.stringify(userData),
         redirect: false,
       });
-
+      setLoading(false);
       if (response.ok) {
         router.push("/");
       } else {
@@ -47,6 +61,9 @@ const Login = () => {
 
   return (
     <section className=" page_sections page__section__dark">
+      {loading ? (
+        <Loader loaderText="Verifying your identity, almost there..." />
+      ) : null}
       {toggleToast.status ? (
         <ToastPopup
           toastText={toggleToast.message}
@@ -56,6 +73,7 @@ const Login = () => {
       ) : (
         <></>
       )}
+      {/* AuthForm component handles the rendering of the login form */}
       <AuthForm
         type="Login"
         items={[

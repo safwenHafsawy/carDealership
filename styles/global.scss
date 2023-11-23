@@ -1,6 +1,7 @@
 @import "./variables";
 @import "./global_mixins.scss";
 @import "./components.scss";
+@import "./animations.scss";
 
 /** Global Styles */
 :root,
@@ -125,7 +126,7 @@ main {
 .page__sections__leftSide {
   width: 100%;
   height: 100%;
-  padding-top: 5%;
+
   box-sizing: border-box;
 }
 

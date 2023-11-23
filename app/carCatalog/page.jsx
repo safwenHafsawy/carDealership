@@ -3,14 +3,25 @@
 import React, { useEffect, useState, useRef } from "react";
 import useToast from "@/hooks/useToast";
 
+/**
+ * Importing components
+ */
 import Card from "@/components/card";
-import { SectionHeader } from "@/components/header";
 import Filters from "@/components/filters";
 import CustomShapeDivider from "@/components/custom_shape_divider";
+import Loader from "@/components/loader";
 import { ToastPopup } from "@/components/popups";
+import { SectionHeader } from "@/components/header";
+
+/**
+ * importing helper functions
+ */
 
 import { showToast } from "@/lib/toastFunctions";
 
+/**
+ *  Car Catalog page component
+ */
 const CarCatalog = () => {
   const allCarsList = useRef([]);
   const filtersList = useRef({
@@ -20,6 +31,7 @@ const CarCatalog = () => {
     availability: "",
   });
   const [carsList, setCarsList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [toggleToast, setToggleToast] = useToast();
 
   /**
@@ -32,14 +44,17 @@ const CarCatalog = () => {
 
       if (response.status === 200) {
         const data = await response.json();
-
+        console.log(data);
         allCarsList.current = data;
         setCarsList(data);
+
+        handleLoading(false);
       }
     } catch (error) {}
   };
 
   useEffect(() => {
+    handleLoading(true);
     getCars();
   }, []);
 
@@ -95,6 +110,13 @@ const CarCatalog = () => {
     setCarsList([...filteredCars]);
   };
 
+  /**
+   * handle loading
+   */
+  const handleLoading = (status) => {
+    setLoading(status);
+  };
+
   return (
     <section className="page_sections car__catalog">
       {toggleToast.status ? (
@@ -103,9 +125,7 @@ const CarCatalog = () => {
           toastType={toggleToast.type}
           toggleToast={setToggleToast}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
       <div className="page__sections__leftSide catalog__leftSide">
         <Filters changeFilters={handleFilterChange} filterData={filterData} />
       </div>
@@ -114,18 +134,24 @@ const CarCatalog = () => {
         <SectionHeader type="section_header-light">
           Our Car Collection
         </SectionHeader>
-        <div id="card_section" className="card__container">
-          {carsList.map((car) => {
-            return (
-              <Card
-                key={car.id}
-                carDetails={car}
-                showToast={showToast}
-                toggleToast={setToggleToast}
-              />
-            );
-          })}
-        </div>
+        {loading ? (
+          <Loader loaderText="Fetching the newest details about the car inventory. Just a moment..." />
+        ) : (
+          <>
+            <div id="card_section" className="card__container">
+              {carsList.map((car) => {
+                return (
+                  <Card
+                    key={car.id}
+                    carDetails={car}
+                    showToast={showToast}
+                    toggleToast={setToggleToast}
+                  />
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

@@ -20,6 +20,7 @@
       & > span {
         text-align: center;
         font-size: 1.3rem;
+        color: $second-color;
       }
 
       & > input {
@@ -47,11 +48,12 @@
     justify-content: space-evenly;
     font-size: 1.2rem;
     padding: 12px;
-    border-top: 1px solid $fourth-color-shade;
+    border-top: 1px solid $fifth-color;
+    color: $second-color;
   }
 
   & > .actions {
-    border-top: 1px solid $fourth-color-shade;
+    border-top: 1px solid $fifth-color;
     padding: 12px 0;
     display: flex;
     justify-content: center;
