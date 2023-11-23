@@ -31,7 +31,7 @@ model carRental {
     totalPrice Int
 
     rentedBy User? @relation(fields: [userId], references: [id])
-    carRentalDates Car @relation(fields: [carId], references: [id])
+    rentedCar Car @relation(fields: [carId], references: [id])
 }
 
 model User {

@@ -42,13 +42,8 @@ function Navigation() {
                 <button onClick={signOut}>Logout</button>
               </li>
               <li className="dropDownMenu__list__item">
-                <Link href="/" onClick={() => setToggle(false)}>
-                  Rented Cars
-                </Link>
-              </li>
-              <li className="dropDownMenu__list__item">
-                <Link href="/" onClick={() => setToggle(false)}>
-                  Profile
+                <Link href="/rentedCars" onClick={() => setToggle(false)}>
+                  Booked Cars
                 </Link>
               </li>
             </ul>
