@@ -37,11 +37,13 @@ export const GET = async (req) => {
         userId: token.userId,
       },
       select: {
+        id: true,
         startDate: true,
         endDate: true,
         totalPrice: true,
         rentedCar: {
           select: {
+            id: true,
             model: true,
             manufacturer: true,
             pricePerHour: true,
@@ -61,5 +63,33 @@ export const GET = async (req) => {
     return new Response(JSON.stringify({ message: "Internal Sever Error !" }), {
       status: 500,
     });
+  }
+};
+
+export const DELETE = async (req) => {
+  try {
+    const data = await req.json();
+
+    const log = await prisma.carRental.delete({
+      where: {
+        id: data.logId,
+      },
+    });
+
+    if (log)
+      return new Response(JSON.stringify({ deleteLogId: log.id }), {
+        status: 200,
+      });
+    else
+      return new Response(JSON.stringify({ message: "Could not delete log" }), {
+        status: 400,
+      });
+  } catch (error) {
+    console.log(error);
+    return new Response(
+      JSON.stringify(JSON.stringify({ message: "Internal Sever Error" }), {
+        status: 500,
+      })
+    );
   }
 };

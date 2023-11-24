@@ -124,7 +124,6 @@ const InputModal = ({
 };
 
 const ToastPopup = ({ toastText, toastType, toggleToast }) => {
-  console.log("Toast");
   return (
     <div className={`toast__container toast__container-${toastType}`}>
       <span className={secondaryHeaderFont.className}>{toastText}</span>

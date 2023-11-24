@@ -1,9 +1,14 @@
-/** Colors */
+/**  Main Colors */
 $first-color: #6f51e9;
 $second-color: #ececee;
 $third-color: #d2a380;
 $fourth-color: #262627;
-$fourth-color-shade: rgba(38, 38, 39, 0.98);
 $fifth-color: rgba(255, 255, 255, 0.7);
+
+/* Colors Shades */
+$second-color-shade-1: rgba(255, 255, 255, 0.3);
+$fourth-color-shade: rgba(38, 38, 39, 0.98);
+
+/* Action Colors */
 $danger-color: #dc3545;
 $success-color: #198754;

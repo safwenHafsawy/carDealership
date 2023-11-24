@@ -458,27 +458,70 @@ main {
   justify-content: flex-start;
   align-items: center;
 
-  div {
+  .rentLogs__container {
     list-style: none;
-    width: 40%;
-    padding: 8px;
+    width: 50%;
+    padding: 12px;
     box-sizing: border-box;
-    div {
+
+    .renLog__data {
       width: 100%;
-      background-color: $fifth-color;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      border-radius: 10px;
+      box-sizing: border-box;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px $fourth-color;
 
-      span {
-        font-size: 1.1rem;
+      .renLog__data-main {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+        cursor: pointer;
+        border-radius: 8px 8px 0 0;
+        box-sizing: border-box;
+        & > span {
+          font-size: 1.2rem;
+        }
       }
 
-      span:nth-child(2) {
-        transform: rotate(90deg);
+      .rentLog__data-extend-hidden {
+        display: none;
       }
-    }
-  }
-}
+
+      .rentLog__data-extend-shown {
+        width: 100%;
+        padding: 12px;
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: column;
+
+        background-color: $fourth-color-shade;
+
+        border-radius: 0 0 8px 8px;
+
+        & > span {
+          font-size: 0.9rem;
+          color: $second-color;
+        }
+
+        & > div {
+          display: flex;
+          justify-content: flex-end;
+
+          & > button {
+            padding: 8px;
+
+            background-color: $third-color;
+            color: $fourth-color;
+
+            border: transparent;
+            border-radius: 4px;
+
+            cursor: pointer;
+          }
+        }
+      }
+    } // end of single rental log design
+  } // end of rental logs design
+} // end of booked car page design

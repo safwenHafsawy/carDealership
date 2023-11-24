@@ -22,7 +22,7 @@ import Loader from "@/components/loader";
 import { showToast } from "@/lib/toastFunctions";
 
 /**
- * Declaring helper variables and fonts
+ * Declaring fonts and needed constants
  */
 const tinWeb = Overlock({ weight: "900", subsets: ["latin"] });
 const smallTextFont = Andika({ weight: "700", subsets: ["latin"] });
