@@ -5,7 +5,11 @@ const mainHeaderFont = Lato({ weight: "900", subsets: ["latin"] });
 const secondaryHeaderFont = Overlock({ weight: "700", subsets: ["latin"] });
 
 const SectionHeader = ({ type, children }) => {
-  return <h1 className={`${mainHeaderFont.className} ${type}`}>{children}</h1>;
+  return (
+    <h1 className={`main__header ${mainHeaderFont.className} ${type}`}>
+      {children}
+    </h1>
+  );
 };
 
 const SubHeader = ({ type, children }) => {

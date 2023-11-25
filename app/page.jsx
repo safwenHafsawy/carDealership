@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import CustomShapeDivider from "@/components/custom_shape_divider";
 import Image from "next/image";

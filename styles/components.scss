@@ -1,7 +1,8 @@
+@import "./animations.scss";
+
 /**
  * Shape Dividers 
  */
-
 .shape__divider__yellow {
   @include separator($first-color);
 }
@@ -61,10 +62,9 @@
     & > a {
       color: $second-color;
       text-decoration: none;
+      position: relative;
 
-      &:hover {
-        text-shadow: 5px 5px 10px $third-color;
-      }
+      @include navigationAnimation($second-color);
     }
 
     & > button {
@@ -115,6 +115,7 @@
     .dropDownMenu__icon {
       border-radius: 50%;
       object-fit: cover;
+      cursor: pointer;
     }
 
     .dropDownMenu__list__item {
@@ -146,11 +147,9 @@
         width: 100%;
         text-align: center;
         padding: 5px;
+        position: relative;
 
-        &:hover {
-          background-color: $fifth-color;
-          border-radius: 10px;
-        }
+        @include navigationAnimation($fourth-color);
       }
     }
   }
