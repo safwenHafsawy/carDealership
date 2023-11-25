@@ -1,35 +1,30 @@
 @mixin navLinks($bg_color_p, $shadow_color_p, $hover_color) {
-  color: $fourth-color;
-  background-color: $bg_color_p;
+  display: inline-block;
   padding: 20px;
-  border-radius: 10px;
+  font-size: 1.2rem;
+
   text-decoration: none;
   cursor: pointer;
-  display: inline-block;
-  transition: all 500ms;
 
-  @if ($shadow_color_p == 2) {
-    /* https://smoothshadows.com/#djEsMSw1LDAuMDksMjQsMzIsMCwjNmY1MWU5LCNmM2Y0ZjYsI2ZmZmZmZiwy */
-    box-shadow: 0px 1px 1px rgba(111, 81, 233, 0.02),
-      0px 5px 4px rgba(111, 81, 233, 0.04),
-      0px 12px 9px rgba(111, 81, 233, 0.05),
-      0px 20px 15px rgba(111, 81, 233, 0.07),
-      0px 32px 24px rgba(111, 81, 233, 0.09);
-  } @else {
-    /* https://smoothshadows.com/#djEsMSw0LDAuMiw3MiwwLDAsI2QyYTM4MCwjZjNmNGY2LCNmZmZmZmYsMg%3D%3D */
-    box-shadow: 0px 0px 5px rgba(210, 163, 128, 0.05),
-      0px 0px 18px rgba(210, 163, 128, 0.1),
-      0px 0px 41px rgba(210, 163, 128, 0.15),
-      0px 0px 72px rgba(210, 163, 128, 0.2);
-  }
+  background-image: linear-gradient(45deg, $bg_color_p 50%, $hover_color 50%);
+  background-size: 250%;
+  background-repeat: repeat;
+  background-position: top right;
 
-  &:hover {
-    border-radius: 47% 53% 49% 51% / 45% 57% 43% 55%;
-    //background-color: $bg-color;
-  }
+  border-radius: 4px;
+  box-shadow: 7px 4px 20px 1px rgba(0, 0, 0, 0.15);
+
+  animation: navLink-animation 300ms 0.15s ease-out forwards;
+  transition: all 300ms;
 
   &:visited {
     color: $fourth-color;
+  }
+
+  &:hover {
+    animation: navLink-animation-rev 300ms ease-out forwards;
+    box-shadow: 3px 2px 10px 1px rgba(0, 0, 0, 0.15);
+    transition: 0.5s;
   }
 }
 
@@ -175,4 +170,7 @@
   justify-content: flex-start;
   align-items: center;
   z-index: 15;
+}
+
+@mixin buttonsExtension {
 }

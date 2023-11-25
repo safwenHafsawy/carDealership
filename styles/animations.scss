@@ -34,3 +34,21 @@
     transform: translateY(0);
   }
 }
+
+@keyframes navLink-animation {
+  0% {
+    background-position: top right;
+  }
+  100% {
+    background-position: top left;
+  }
+}
+
+@keyframes navLink-animation-rev {
+  0% {
+    background-position: top left;
+  }
+  100% {
+    background-position: top right;
+  }
+}
