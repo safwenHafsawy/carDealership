@@ -129,15 +129,7 @@
         border-top: 1px solid $fourth-color;
 
         & > button {
-          background-color: $first-color;
-          padding: 10px;
-          border-radius: 10px;
-          border: none;
-          box-sizing: border-box;
-          color: $second-color;
-          font-family: inherit;
-          font-size: 1.1rem;
-          cursor: pointer;
+          @include actionButton($first-color, $third-color, 80%);
         }
       }
 
@@ -282,14 +274,7 @@
   }
 
   .filters__container-search {
-    background-color: $first-color;
-    color: $second-color;
-    width: 20%;
-    font-size: 1rem;
-    cursor: pointer;
-    border: none;
-    height: 2.5rem;
-    border-radius: 20px;
+    @include actionButton($first-color, $third-color, 20%);
   }
 }
 

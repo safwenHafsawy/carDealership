@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Lato, Luckiest_Guy } from "next/font/google";
+import { Lato, Luckiest_Guy, Overlock } from "next/font/google";
 import { signOut, useSession } from "next-auth/react";
 
 const mainHeaderFont = Lato({ weight: "900", subsets: ["latin"] });
+const secondaryHeaderFont = Overlock({ weight: "700", subsets: ["latin"] });
 const brandFont = Luckiest_Guy({ weight: "400", subsets: ["latin"] });
 
 function Navigation() {
@@ -39,7 +40,12 @@ function Navigation() {
               }
             >
               <li className="dropDownMenu__list__item">
-                <button onClick={signOut}>Logout</button>
+                <button
+                  className={secondaryHeaderFont.className}
+                  onClick={signOut}
+                >
+                  Logout
+                </button>
               </li>
               <li className="dropDownMenu__list__item">
                 <Link href="/rentedCars" onClick={() => setToggle(false)}>

@@ -59,14 +59,7 @@
     justify-content: center;
 
     & > button {
-      width: 25%;
-      padding: 4px;
-      background-color: $first-color;
-      color: $second-color;
-      border-radius: 8px;
-      border: transparent;
-      font-size: 1.1rem;
-      cursor: pointer;
+      @include actionButton($first-color, $third-color, 35%);
     }
   }
 }
