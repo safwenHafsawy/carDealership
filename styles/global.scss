@@ -30,6 +30,7 @@ main {
 
 .page_sections {
   @include pageSection(90%);
+  animation: fadeIn 300ms ease-in-out;
 }
 
 .page_sections-full {

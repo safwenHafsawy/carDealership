@@ -5,7 +5,7 @@ import { useState } from "react";
 import PriceRange from "./filters/range";
 import SearchBar from "./filters/search";
 import { SectionHeader } from "@/components/header";
-import CheckboxFilter from "./filters/checkbox";
+import { SingleCheckBoxContainer } from "./filters/checkbox";
 
 import { Overlock } from "next/font/google";
 
@@ -46,14 +46,8 @@ const Filters = ({ changeFilters, filterData }) => {
           maxPrice={maxPrice}
           onChange={handleChange}
         />
-        <div className="filters__availability">
-          <CheckboxFilter
-            type="dark"
-            name="Available"
-            value="Available"
-            onChange={handleChange}
-          />
-        </div>
+
+        <SingleCheckBoxContainer value="Available Only" />
       </div>
       <button
         className={`${tinWeb.className} filters__container-search`}

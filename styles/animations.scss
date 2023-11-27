@@ -52,3 +52,27 @@
     background-position: top right;
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shift {
+  0% {
+    width: 100%;
+  }
+  25% {
+    width: 33%;
+  }
+  50% {
+    width: 33%;
+  }
+  100% {
+    width: 100%;
+  }
+}

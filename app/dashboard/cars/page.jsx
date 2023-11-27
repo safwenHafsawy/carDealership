@@ -8,7 +8,8 @@ import { CarForm } from "@/components/form";
 import Card from "@/components/card";
 import { ToastPopup } from "@/components/popups";
 import { SectionHeader, SubHeader } from "@/components/header";
-import CheckboxFilter from "@/components/filters/checkbox";
+import { MultipleCheckBox } from "@/components/filters/checkbox";
+import Loader from "@/components/loader";
 
 import { showToast } from "@/lib/toastFunctions";
 
@@ -35,6 +36,7 @@ const Cars = () => {
   });
   const [formTitle, setFormTitle] = useState("");
   const [formValidationErrors, setFormValidationErrors] = useState("");
+  const [Loading, setLoading] = useState({ status: false, message: "" });
 
   const [toggleToast, setToggleToast] = useToast();
 
@@ -42,6 +44,8 @@ const Cars = () => {
    * Fetching Car on component startup
    */
   const fetchCars = async () => {
+    setLoading({ status: true, message: "Fetching Cars data..." });
+
     const response = await fetch("/api/car", {
       method: "GET",
     });
@@ -49,7 +53,7 @@ const Cars = () => {
     const data = await response.json();
     setListOfCars([...data]);
     allCars.current = [...data];
-
+    setLoading({ status: false, message: "" });
     //getting the list of available manufacturers
     allCars.current.forEach((car) => {
       if (!existingManufacturers.current.includes(car.manufacturer)) {
@@ -119,7 +123,10 @@ const Cars = () => {
   const handleOperation = async (carData, operation) => {
     try {
       await validateForm(carData, operation);
-
+      setLoading({
+        status: true,
+        message: "Processing operation ! just a moment...",
+      });
       //handling form data
       const formData = new FormData();
       for (let data in carData) {
@@ -131,7 +138,7 @@ const Cars = () => {
           method: "DELETE",
           body: formData,
         });
-
+        setLoading({ status: false, message: "" });
         switch (response.status) {
           case 401:
             showToast("could not remove this car", "danger", setToggleToast);
@@ -152,7 +159,7 @@ const Cars = () => {
           method: operation,
           body: formData,
         });
-
+        setLoading({ status: false, message: "" });
         switch (response.status) {
           case 401:
             showToast(
@@ -304,80 +311,86 @@ const Cars = () => {
         <SectionHeader type="section_header-light">
           Car Collection
         </SectionHeader>
-
-        <div className="options">
-          <div className="options-left">
-            <div className="filters_container">
-              <div className="filters_option">
-                <span className={tinWeb.className}>Manufacturer: </span>
-                <div className="filters_option-set">
-                  {existingManufacturers.current.map((manufacturer, index) => {
-                    return (
-                      <CheckboxFilter
-                        key={index}
-                        name="manufacturer"
-                        value={manufacturer}
+        {Loading.status ? (
+          <Loader loaderText={Loading.message} />
+        ) : (
+          <>
+            <div className="options">
+              <div className="options-left">
+                <div className="filters_container">
+                  <div className="filters_option">
+                    <span className={tinWeb.className}>Manufacturer: </span>
+                    <div className="filters_option-set">
+                      {existingManufacturers.current.map(
+                        (manufacturer, index) => {
+                          return (
+                            <MultipleCheckBox
+                              key={index}
+                              value={manufacturer}
+                            />
+                          );
+                        }
+                      )}
+                    </div>
+                  </div>
+                  <div className="filters_option">
+                    <span className={tinWeb.className}>Availability: </span>
+                    <div className="filters_option-set">
+                      <MultipleCheckBox
+                        key={1}
+                        name={"availability"}
+                        value={"Available"}
                         onChange={handleFilterChange}
                       />
-                    );
-                  })}
+                      <MultipleCheckBox
+                        key={2}
+                        name={"availability"}
+                        value={"Not Available"}
+                        onChange={handleFilterChange}
+                      />
+                    </div>
+                  </div>
                 </div>
+                <button className={tinWeb.className} onClick={filterCars}>
+                  &#8711; Filter
+                </button>
               </div>
-              <div className="filters_option">
-                <span className={tinWeb.className}>Availability: </span>
-                <div className="filters_option-set">
-                  <CheckboxFilter
-                    key={1}
-                    name={"availability"}
-                    value={"Available"}
-                    onChange={handleFilterChange}
-                  />
-                  <CheckboxFilter
-                    key={2}
-                    name={"availability"}
-                    value={"Not Available"}
-                    onChange={handleFilterChange}
-                  />
-                </div>
+
+              <div className="options-right">
+                <button
+                  className={tinWeb.className}
+                  onClick={() => {
+                    resetForm();
+                    showForm(true, "Create");
+                  }}
+                >
+                  Add New Car
+                </button>
               </div>
             </div>
-            <button className={tinWeb.className} onClick={filterCars}>
-              &#8711; Filter
-            </button>
-          </div>
-
-          <div className="options-right">
-            <button
-              className={tinWeb.className}
-              onClick={() => {
-                resetForm();
-                showForm(true, "Create");
-              }}
-            >
-              Add New Car
-            </button>
-          </div>
-        </div>
-        <div className="carsContainer">
-          {/*console.log(listOfCars)*/}
-          {listOfCars.length === 0 ? (
-            <SubHeader type="sub__header-light">
-              Looks Like there are no cars here yet
-            </SubHeader>
-          ) : (
-            listOfCars.map((car) => {
-              return (
-                <Card
-                  key={car.id}
-                  carDetails={car}
-                  toggleUpdate={showForm}
-                  handleChange={handleChange}
-                  resetForm={resetForm}
-                />
-              );
-            })
-          )}
-        </div>
+            <div className="carsContainer">
+              {/*console.log(listOfCars)*/}
+              {listOfCars.length === 0 ? (
+                <SubHeader type="sub__header-light">
+                  Looks Like there are no cars here yet
+                </SubHeader>
+              ) : (
+                listOfCars.map((car) => {
+                  return (
+                    <Card
+                      key={car.id}
+                      carDetails={car}
+                      toggleUpdate={showForm}
+                      handleChange={handleChange}
+                      resetForm={resetForm}
+                    />
+                  );
+                })
+              )}
+            </div>
+          </>
+        )}
+        );
       </div>
     </section>
   );
