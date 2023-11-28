@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import PriceRange from "./filters/range";
 import SearchBar from "./filters/search";
@@ -28,11 +28,13 @@ const Filters = ({ changeFilters, filterData }) => {
       case "maxPrice":
         setMaxPrice(value);
         break;
-      case "Available":
+      case "available":
         setAvailability(!available);
         break;
     }
   };
+
+  useEffect(() => console.log(available), [available]);
 
   return (
     <div className="filters__container">
@@ -47,7 +49,11 @@ const Filters = ({ changeFilters, filterData }) => {
           onChange={handleChange}
         />
 
-        <SingleCheckBoxContainer value="Available Only" />
+        <SingleCheckBoxContainer
+          name="available"
+          value="Available Only"
+          onChange={handleChange}
+        />
       </div>
       <button
         className={`${tinWeb.className} filters__container-search`}

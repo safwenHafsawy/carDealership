@@ -308,6 +308,7 @@ main {
           align-items: center;
           margin-top: 5px;
           box-sizing: border-box;
+          text-align: start;
           //background-color: magenta;
 
           & > span {
@@ -324,7 +325,9 @@ main {
           .filters_option-set {
             display: flex;
             flex-direction: row;
-            width: 50%;
+            width: 70%;
+            height: 1.2rem;
+            margin-left: 8px;
           }
         }
       }

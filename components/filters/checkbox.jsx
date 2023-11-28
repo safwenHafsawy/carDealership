@@ -2,25 +2,35 @@ import React from "react";
 
 import { Overlock } from "next/font/google";
 
-const tinWeb = Overlock({ weight: "700", subsets: ["latin"] });
+const tinWeb = Overlock({ weight: "400", subsets: ["latin"] });
 
-const SingleCheckBoxContainer = ({ value }) => {
+const SingleCheckBoxContainer = ({ name, value, onChange }) => {
   return (
     <div className="singleCheckBox__container">
       <div class="custom-checkbox">
-        <input type="checkbox" />
-        <div class="outer"></div>
-        <div class="inner"></div>
+        <input
+          name={name}
+          type="checkbox"
+          value={value}
+          onChange={(e) => onChange(e.target)}
+        />
+        <div className="outer"></div>
+        <div className="inner"></div>
       </div>
       <span className={tinWeb.className}>{value}</span>
     </div>
   );
 };
 
-const MultipleCheckBox = ({ value }) => {
+const MultipleCheckBox = ({ name, value, onChange }) => {
   return (
-    <div className="custom-multiCheckbox">
-      <input type="checkbox" />
+    <div className={`${tinWeb.className} custom-multiCheckbox`}>
+      <input
+        name={name}
+        type="checkbox"
+        value={value}
+        onChange={(e) => onChange(e.target)}
+      />
       <label>{value}</label>
     </div>
   );

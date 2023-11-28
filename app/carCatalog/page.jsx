@@ -104,7 +104,9 @@ const CarCatalog = () => {
 
     //filter based on availability
     if (available) {
-      filteredCars = filteredCars.filter((car) => car.availability);
+      filteredCars = filteredCars.filter(
+        (car) => car.availability === "Available"
+      );
     }
 
     setCarsList([...filteredCars]);

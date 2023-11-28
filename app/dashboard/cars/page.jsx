@@ -229,9 +229,6 @@ const Cars = () => {
    */
 
   const handleFilterChange = ({ name, value }) => {
-    if (value === "Available") value = true;
-    else if (value === "Not Available") value = false;
-
     // handling of manufacturers filter
     if (name === "manufacturer") {
       if (filters.current.manufacturer.includes(value)) {
@@ -262,20 +259,31 @@ const Cars = () => {
   };
 
   const filterCars = () => {
+    const { manufacturer, availability } = filters.current;
+    const notAvailableReg = new RegExp(
+      "^(Available in \\d+ days)|(Available in 24 hours)$",
+      "gm"
+    );
     const filteredCars = allCars.current.filter((car) => {
       //filter by manufacturer name
-      if (filters.current.manufacturer.length > 0) {
-        if (!filters.current.manufacturer.includes(car.manufacturer))
-          return false;
+      if (manufacturer.length > 0) {
+        if (manufacturer.includes(car.manufacturer)) return true;
       }
 
       if (filters.current.availability.length > 0) {
-        if (!filters.current.availability.includes(car.availability)) {
-          return false;
-        }
+        if (
+          availability.includes("Available") &&
+          car.availability === "Available"
+        )
+          return true;
+        else if (
+          availability.includes("Not Available") &&
+          notAvailableReg.test(car.availability)
+        )
+          return true;
       }
 
-      return true;
+      return false;
     });
 
     setListOfCars([...filteredCars]);
@@ -326,7 +334,9 @@ const Cars = () => {
                           return (
                             <MultipleCheckBox
                               key={index}
+                              name="manufacturer"
                               value={manufacturer}
+                              onChange={handleFilterChange}
                             />
                           );
                         }
@@ -390,7 +400,6 @@ const Cars = () => {
             </div>
           </>
         )}
-        );
       </div>
     </section>
   );
