@@ -49,7 +49,7 @@ export const POST = async (request) => {
         age: parseInt(age),
         email: email,
         password: hash,
-        image: filepath.substring(filepath.indexOf("uploadedImgs")),
+        image: `/${filepath.substring(filepath.indexOf("uploadedImgs"))}`,
       },
     });
 

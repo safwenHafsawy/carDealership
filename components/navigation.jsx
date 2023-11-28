@@ -13,7 +13,7 @@ const brandFont = Luckiest_Guy({ weight: "400", subsets: ["latin"] });
 function Navigation() {
   const [toggle, setToggle] = useState(false);
   const { data: session } = useSession();
-
+  console.log(session?.user.image);
   const toggleDropDown = () => {
     setToggle(!toggle);
   };
@@ -25,7 +25,7 @@ function Navigation() {
         {session ? (
           <div className="navigation__list__item dropDownMenu">
             <Image
-              src={`/${session.user.image}`}
+              src={session.user.image}
               width={40}
               height={40}
               alt="user picture"
