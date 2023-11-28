@@ -3,12 +3,24 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "@/prisma/prisma";
 import { checkUserCred } from "@/utils/userOperations";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import customPrismaAdapter from "./customPrismaAdapter";
 
 const authOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: customPrismaAdapter(prisma),
   providers: [
     GoogleProvider({
+      id: "google",
+      name: "Google",
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          username: profile.given_name + "_" + profile.family_name,
+          email: profile.email,
+          image: profile.picture,
+          age: 0,
+        };
+      },
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
@@ -28,6 +40,7 @@ const authOptions = {
       // console.log("--------------------------------");
 
       if (user) {
+        console.log(user);
         return {
           ...token,
           userId: user.id,

@@ -42,7 +42,8 @@ const AuthForm = ({ type, items, onclick, showToast, toggleToast }) => {
     }
   };
 
-  const submitForm = () => {
+  const submitForm = (e) => {
+    console.log(e.target.name);
     if (type === "CreateAccount") {
       const formData = new FormData();
       for (let d in formValues) {
@@ -52,7 +53,7 @@ const AuthForm = ({ type, items, onclick, showToast, toggleToast }) => {
       onclick(formData);
       return;
     }
-    onclick(formValues);
+    onclick(formValues, e.target.name);
   };
 
   return (
@@ -81,15 +82,21 @@ const AuthForm = ({ type, items, onclick, showToast, toggleToast }) => {
         type="submit"
         style={tinWeb.style}
         className="login__items auth__btn"
-        onClick={submitForm}
         value={type === "Login" ? "Login" : "Sign Up"}
+        name="credentials"
+        onClick={submitForm}
       />
 
       <div className="social__auth">
-        <div style={tinWeb.style} className="social__auth-item">
+        <button
+          style={tinWeb.style}
+          className="social__auth-item"
+          name="google"
+          onClick={submitForm}
+        >
           Google
           <Image src="/google.svg" width={20} height={20} alt="google icon" />
-        </div>
+        </button>
       </div>
       <div className="options">
         {type == "Login" ? (

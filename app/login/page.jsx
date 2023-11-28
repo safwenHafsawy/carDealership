@@ -26,29 +26,39 @@ const Login = () => {
    * Handles the login process when the form is submitted.
    * @param {Object} userData - User credentials entered in the login form.
    */
-  const handleLogin = async (userData) => {
+  const handleLogin = async (userData, provider) => {
+    console.log(provider);
     try {
-      setLoading(true);
-      const response = await signIn("credentials", {
-        data: JSON.stringify(userData),
-        redirect: false,
-      });
-      setLoading(false);
-      if (response.ok) {
-        router.push("/");
-      } else {
-        if (response.status === 401)
-          showToast(
-            "Invalid credentials ! please check the information you provided",
-            "danger",
-            setToggleToast
-          );
-        else if (response.status === 500)
-          showToast(
-            "There was an error on our side ! please try again",
-            "danger",
-            setToggleToast
-          );
+      // Handle login based on provider
+      // Credentials provider
+      if (provider === "credentials") {
+        setLoading(true);
+        const response = await signIn("credentials", {
+          data: JSON.stringify(userData),
+          redirect: false,
+        });
+        setLoading(false);
+        if (response.ok) {
+          router.push("/");
+        } else {
+          if (response.status === 401)
+            showToast(
+              "Invalid credentials ! please check the information you provided",
+              "danger",
+              setToggleToast
+            );
+          else if (response.status === 500)
+            showToast(
+              "There was an error on our side ! please try again",
+              "danger",
+              setToggleToast
+            );
+        }
+      }
+
+      // google provider
+      else {
+        const response = await signIn(provider);
       }
     } catch (error) {
       showToast(
