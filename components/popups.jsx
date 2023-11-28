@@ -80,17 +80,18 @@ const InputModal = ({
     });
 
     const data = await response.json();
-    handleLoading(false);
 
     if (response.status === 201) {
       showToast(
-        `BooKed Successfully from ${startDate} - ${endDate}`,
+        `Booked Successfully from ${startDate} - ${endDate}`,
         "success",
         toggleToast
       );
     } else if (response.status === 400 || response.status === 500)
-      handleModalToggle();
-    showToast(data.message, "danger", toggleToast);
+      showToast(data.message, "danger", toggleToast);
+
+    handleLoading(false);
+    handleModalToggle(false);
   };
 
   return (
@@ -124,6 +125,7 @@ const InputModal = ({
 };
 
 const ToastPopup = ({ toastText, toastType, toggleToast }) => {
+  console.log(toastText, toastType, toggleToast);
   return (
     <div className={`toast__container toast__container-${toastType}`}>
       <span className={secondaryHeaderFont.className}>{toastText}</span>
