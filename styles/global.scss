@@ -52,6 +52,7 @@ main {
 
 .homeBanner__text {
   width: 60%;
+  animation: roadRunnerLeftToRight 800ms ease-out;
 
   & > p {
     color: $second-color;
@@ -64,6 +65,7 @@ main {
   height: 100%;
   display: flex;
   justify-content: center;
+  animation: roadRunnerRightToLeft 800ms ease-out;
 
   & > img {
     object-fit: contain;

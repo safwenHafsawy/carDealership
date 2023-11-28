@@ -11,6 +11,10 @@ import {
 } from "@/utils/dateOperations";
 
 const secondaryHeaderFont = Overlock({ weight: "700", subsets: ["latin"] });
+const secondaryHeaderFontLighter = Overlock({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 const Calendar = ({ selectDate, rentalLog }) => {
   const months = useRef([]);
@@ -113,11 +117,11 @@ const Calendar = ({ selectDate, rentalLog }) => {
     <div className="calendar__container">
       <div className="calendar__options">
         <div className="calendar_option calendar__options-month">
-          <button onClick={() => updateMonth("backward")}>&#60;</button>
+          <button onClick={() => updateMonth("backward")}>&#9668;</button>
           <h3 className={secondaryHeaderFont.className}>
             {month.name} / {year}
           </h3>
-          <button onClick={() => updateMonth("forward")}>&#62;</button>
+          <button onClick={() => updateMonth("forward")}>&#9658;</button>
         </div>
       </div>
       <div className="calendar_dates">
@@ -125,7 +129,7 @@ const Calendar = ({ selectDate, rentalLog }) => {
           return (
             <span
               className={`${
-                secondaryHeaderFont.className
+                secondaryHeaderFontLighter.className
               } calendar__dates-date ${determineDateAvailability(day)}`}
               key={i}
               onClick={

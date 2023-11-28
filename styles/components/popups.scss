@@ -12,22 +12,22 @@
   position: relative;
   margin-top: 10%; // Adjusting top margin for positioning
   width: 35%;
-  background: $fourth-color;
+  background: $second-color;
   border-radius: 16px; // Rounded corners
-  box-shadow: 0 0 5px $third-color; // Shadow for a lifted effect
   border-radius: 8px; // Rounded corners
   padding: 4px; // Padding for inner content
-  border: 1px solid $fourth-color; // Border color
+  transform: scale(0);
+  animation: blowUp 400ms ease-in forwards;
 
   & > h1 {
     text-align: center;
-    border-bottom: 1px solid $fifth-color; // Border for header
+    border-bottom: 1px solid $fourth-color-shade; // Border for header
     padding: 4px; // Padding for header
-    color: $second-color;
+    color: $fourth-color;
   }
 
   & > button {
-    background-color: $second-color; // Button background color
+    background-color: transparent; // Button background color
     border: none;
     padding: 4px;
     border-radius: 4px; // Rounded corners
@@ -45,17 +45,23 @@
   position: fixed;
   border-radius: 4px; // Rounded corners
   z-index: 12;
-  top: 2%;
-  left: 35%;
+  top: 10%;
+  right: 2%;
   width: 25%;
   height: 4rem;
   padding: 4px 8px;
+  animation: extendToast 400ms ease-in-out;
 
   display: grid;
   grid-template-columns: 90% 10%; // Grid layout for content and button
   grid-template-rows: 1fr;
   grid-column-gap: 2px;
   grid-row-gap: 0px;
+
+  & > * {
+    opacity: 0;
+    animation: fadeIn 500ms ease-in-out 300ms forwards;
+  }
 
   & > span {
     display: flex;
