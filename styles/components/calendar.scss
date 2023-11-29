@@ -79,6 +79,7 @@
 
   .date-booked {
     background-color: $third-color;
+    filter: brightness(50%);
     cursor: not-allowed;
   }
 }

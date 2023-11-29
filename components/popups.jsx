@@ -12,13 +12,14 @@ import { hideToast } from "@/lib/toastFunctions";
 const mainHeaderFont = Lato({ weight: "900", subsets: ["latin"] });
 const secondaryHeaderFont = Overlock({ weight: "700", subsets: ["latin"] });
 
-const InputModal = ({
+const CarBookModal = ({
   handleModalToggle,
   rentalLog,
   pricePerDay,
   toggleToast,
   showToast,
   handleLoading,
+  updateLogs,
 }) => {
   const { data: session } = useSession();
   const pathname = usePathname();
@@ -37,7 +38,7 @@ const InputModal = ({
 
       if (
         rentalLogParsedStartDate > startDateParsed &&
-        rentalLogParsedEndDate > endDateParsed
+        rentalLogParsedEndDate < endDateParsed
       )
         return 1;
     }
@@ -87,6 +88,7 @@ const InputModal = ({
         "success",
         toggleToast
       );
+      updateLogs(data);
     } else if (response.status === 400 || response.status === 500)
       showToast(data.message, "danger", toggleToast);
 
@@ -125,7 +127,6 @@ const InputModal = ({
 };
 
 const ToastPopup = ({ toastText, toastType, toggleToast }) => {
-  console.log(toastText, toastType, toggleToast);
   return (
     <div className={`toast__container toast__container-${toastType}`}>
       <span className={secondaryHeaderFont.className}>{toastText}</span>
@@ -134,4 +135,4 @@ const ToastPopup = ({ toastText, toastType, toggleToast }) => {
   );
 };
 
-export { InputModal, ToastPopup };
+export { CarBookModal, ToastPopup };

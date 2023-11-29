@@ -12,7 +12,7 @@ import useToast from "@/hooks/useToast";
  * importing components
  */
 import { SectionHeader } from "@/components/header";
-import { InputModal } from "@/components/popups";
+import { CarBookModal } from "@/components/popups";
 import { ToastPopup } from "@/components/popups";
 import Loader from "@/components/loader";
 
@@ -35,8 +35,8 @@ const CarDetails = () => {
   const router = useRouter();
   const carId = useRef(pathname.split("/")[2]);
   const { data: session } = useSession();
+  const carDetails = useRef({});
 
-  const [carDetails, setCarDetails] = useState({});
   const [bookModal, setBookModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [toggleToast, setToggleToast] = useToast();
@@ -55,7 +55,8 @@ const CarDetails = () => {
 
       if (response.status === 200) {
         const data = await response.json();
-        setCarDetails({ ...data });
+        carDetails.current = data;
+        console.log(carDetails.current);
         handleLoading(false);
       }
       if (response.status === 404) {
@@ -82,13 +83,20 @@ const CarDetails = () => {
     fetchCarData();
   }, []);
 
-  const bookCar = () => {
+  const openCarBookingPopup = () => {
     if (!session) {
       router.push("/login");
       return;
     }
 
     setBookModal(true);
+  };
+
+  /**
+   * update rental logs after a successful booking request
+   */
+  const updateLogs = (newLog) => {
+    carDetails.current.rentalLog.push(newLog);
   };
 
   /**
@@ -122,20 +130,21 @@ const CarDetails = () => {
             <></>
           )}
           {bookModal ? (
-            <InputModal
+            <CarBookModal
               handleModalToggle={handleBookModal}
-              rentalLog={carDetails.rentalLog}
-              pricePerDay={carDetails.pricePerHour}
+              rentalLog={carDetails.current.rentalLog}
+              pricePerDay={carDetails.current.pricePerHour}
               showToast={showToast}
               toggleToast={setToggleToast}
               handleLoading={handleLoading}
+              updateLogs={updateLogs}
             />
           ) : (
             <></>
           )}
           <div className="page__sections__leftSide car__image">
             <Image
-              src={`/${carDetails.image}`}
+              src={`/${carDetails.current.image}`}
               width={500}
               height={500}
               alt="Car image"
@@ -144,7 +153,7 @@ const CarDetails = () => {
           <div className="page__sections__rightSide car__details">
             <div className="page_section-header">
               <SectionHeader type="section_header-light">
-                {carDetails.model}
+                {carDetails.current.model}
               </SectionHeader>
             </div>
 
@@ -152,23 +161,26 @@ const CarDetails = () => {
               <h2 className={tinWeb.className}>
                 Manufacturer:{" "}
                 <span className={tinWeb.className}>
-                  {carDetails.manufacturer}
+                  {carDetails.current.manufacturer}
                 </span>
               </h2>
               <div>
                 <p className={smallTextFont.className}>
-                  Rent price per hour : {carDetails.pricePerHour}$<br />
-                  Availability : {carDetails.availability}
+                  Rent price per hour : {carDetails.current.pricePerHour}$<br />
+                  Availability : {carDetails.current.availability}
                 </p>
 
                 <p className={smallTextFont.className}>
                   Description : <br />
-                  {carDetails.technicalSpec}
+                  {carDetails.current.technicalSpec}
                 </p>
               </div>
             </div>
             <div className="options">
-              <button className={tinWeb.className} onClick={bookCar}>
+              <button
+                className={tinWeb.className}
+                onClick={openCarBookingPopup}
+              >
                 Book This Car
               </button>
             </div>
