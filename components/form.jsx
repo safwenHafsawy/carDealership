@@ -86,7 +86,6 @@ const AuthForm = ({ type, items, onclick, showToast, toggleToast }) => {
         name="credentials"
         onClick={submitForm}
       />
-
       <div className="social__auth">
         <button
           style={tinWeb.style}
@@ -94,8 +93,10 @@ const AuthForm = ({ type, items, onclick, showToast, toggleToast }) => {
           name="google"
           onClick={submitForm}
         >
-          Google
-          <Image src="/google.svg" width={20} height={20} alt="google icon" />
+          <Image src="/google.svg" width={30} height={30} alt="google icon" />
+          <span>
+            {type === "Login" ? "Login with Google" : "Sign Up with google"}
+          </span>
         </button>
       </div>
       <div className="options">

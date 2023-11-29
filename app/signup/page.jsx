@@ -69,7 +69,7 @@ const SignUp = () => {
         items={[
           { name: "name", type: "text", placeholder: "full name" },
           { name: "username", type: "text", placeholder: "username" },
-          { name: "age", type: "text", placeholder: "age" },
+          { name: "phone", type: "text", placeholder: "phone number" },
           { name: "email", type: "text", placeholder: "email" },
           { name: "password", type: "password", placeholder: "password" },
         ]}
