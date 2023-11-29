@@ -45,6 +45,7 @@ const CarDetails = () => {
    * Fetch Car Details
    */
   const fetchCarData = async () => {
+    if (Object.keys(carDetails.current).length !== 0) return;
     try {
       const response = await fetch(`/api/car/${carId.current}`, {
         method: "GET",
@@ -56,7 +57,7 @@ const CarDetails = () => {
       if (response.status === 200) {
         const data = await response.json();
         carDetails.current = data;
-        console.log(carDetails.current);
+
         handleLoading(false);
       }
       if (response.status === 404) {

@@ -27,7 +27,6 @@ const Login = () => {
    * @param {Object} userData - User credentials entered in the login form.
    */
   const handleLogin = async (userData, provider) => {
-    console.log(provider);
     try {
       // Handle login based on provider
       // Credentials provider
@@ -39,7 +38,7 @@ const Login = () => {
         });
         setLoading(false);
         if (response.ok) {
-          router.push("/");
+          router.back();
         } else {
           if (response.status === 401)
             showToast(
@@ -58,7 +57,7 @@ const Login = () => {
 
       // google provider
       else {
-        const response = await signIn(provider);
+        await signIn(provider);
       }
     } catch (error) {
       showToast(

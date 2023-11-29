@@ -7,7 +7,7 @@ const tinWeb = Overlock({ weight: "400", subsets: ["latin"] });
 const SingleCheckBoxContainer = ({ name, value, onChange }) => {
   return (
     <div className="singleCheckBox__container">
-      <div class="custom-checkbox">
+      <div className="custom-checkbox">
         <input
           name={name}
           type="checkbox"

@@ -39,6 +39,7 @@ const CarCatalog = () => {
    */
 
   const getCars = async () => {
+    if (Object.keys(allCarsList.current).length !== 0) return;
     try {
       const response = await fetch("/api/car");
 

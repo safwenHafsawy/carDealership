@@ -13,7 +13,7 @@ const brandFont = Luckiest_Guy({ weight: "400", subsets: ["latin"] });
 function Navigation() {
   const [toggle, setToggle] = useState(false);
   const { data: session } = useSession();
-  console.log(session?.user.image);
+
   const toggleDropDown = () => {
     setToggle(!toggle);
   };
