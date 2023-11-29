@@ -160,9 +160,11 @@ const CarForm = ({
       <SubHeader type="sub__header-dark">
         {title === "Create" ? "Add New Car" : "Update Car"}
       </SubHeader>
-      <button style={tinWeb.style} className="closeForm" onClick={closeForm}>
-        Close
-      </button>
+      <button
+        style={tinWeb.style}
+        className="closeForm"
+        onClick={closeForm}
+      ></button>
       <div
         className={validationsError.length > 0 ? "error-show" : "error-hide"}
       >
