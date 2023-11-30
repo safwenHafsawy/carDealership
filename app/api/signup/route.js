@@ -8,7 +8,7 @@ export const POST = async (request) => {
     const data = await request.formData();
     const name = data.get("name");
     const username = data.get("username");
-    const age = data.get("age");
+    const phone = data.get("phone");
     const email = data.get("email");
     const password = data.get("password");
     const img = data.get("userImage");
@@ -46,7 +46,7 @@ export const POST = async (request) => {
       data: {
         name: name,
         username: username,
-        age: parseInt(age),
+        phoneNumber: parseInt(phone),
         email: email,
         password: hash,
         image: `/${filepath.substring(filepath.indexOf("uploadedImgs"))}`,

@@ -55,18 +55,18 @@ model carRental {
 }
 
 model User {
-    id         String   @id @default(uuid())
-    name       String
-    username   String   @unique
-    email      String   @unique
-    age        Int  
-    password   String?
-    image      String?
-    createdAt  DateTime @default(now()) @map(name: "created_at")
-    rentedCars carRental[]
-    sessions   Session[]
-    accounts      Account[]
-    Role       UserRole @default(USER)
+    id          String   @id @default(uuid())
+    name        String
+    username    String   @unique
+    email       String   @unique
+    phoneNumber BigInt   
+    password    String?
+    image       String?
+    createdAt   DateTime @default(now()) @map(name: "created_at")
+    rentedCars  carRental[]
+    sessions    Session[]
+    accounts    Account[]
+    Role        UserRole @default(USER)
 
     @@map(name: "users")
 }

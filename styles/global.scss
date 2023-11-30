@@ -9,7 +9,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  width: 100dvw;
+  width: calc(100vw - 100%);
   height: 100vh;
   scroll-behavior: smooth;
   background-color: $second-color;
@@ -435,8 +435,16 @@ main {
   }
 
   .options {
-    & > button {
+    padding: 5%;
+    box-sizing: border-box;
+    & > button,
+    a {
       @include actionButton($first-color, $third-color, 60%);
+    }
+
+    & > a {
+      margin-top: 2rem;
+      text-decoration: none;
     }
   }
 }

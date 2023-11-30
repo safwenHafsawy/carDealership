@@ -418,7 +418,8 @@
 }
 
 .auth__form_long {
-  @include formContainer(80%);
+  @include formContainer(85%);
+  margin-top: 5%;
 }
 
 .auth__items {
@@ -503,7 +504,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 15%;
+  min-height: 4rem;
   width: 70%;
   border-radius: 3px;
   padding: 0 10px;

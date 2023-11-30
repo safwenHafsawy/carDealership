@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { AuthForm } from "@/components/form";
+import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import useToast from "@/hooks/useToast";
@@ -19,6 +20,7 @@ import Loader from "@/components/loader";
  */
 const Login = () => {
   const router = useRouter();
+  const search = useSearchParams();
   const [toggleToast, setToggleToast] = useToast();
   const [loading, setLoading] = useState(false);
 
@@ -38,7 +40,9 @@ const Login = () => {
         });
         setLoading(false);
         if (response.ok) {
-          router.back();
+          if (search.get("prevPath") === "/signup" || !search.get("prevPath"))
+            router.push("/");
+          else router.back();
         } else {
           if (response.status === 401)
             showToast(

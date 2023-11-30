@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Lato, Luckiest_Guy, Overlock } from "next/font/google";
@@ -13,6 +14,7 @@ const brandFont = Luckiest_Guy({ weight: "400", subsets: ["latin"] });
 function Navigation() {
   const [toggle, setToggle] = useState(false);
   const { data: session } = useSession();
+  const pathname = usePathname();
 
   const toggleDropDown = () => {
     setToggle(!toggle);
@@ -56,7 +58,14 @@ function Navigation() {
           </div>
         ) : (
           <li className="navigation__list__item">
-            <Link href="/login">Login</Link>
+            <Link
+              href={{
+                pathname: "/login",
+                query: { prevPath: pathname },
+              }}
+            >
+              Login
+            </Link>
           </li>
         )}
         {session?.user.role == "ADMIN" ? (

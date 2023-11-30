@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Overlock, Andika } from "next/font/google";
 import useToast from "@/hooks/useToast";
 
@@ -20,12 +20,13 @@ import Loader from "@/components/loader";
  * importing helper functions
  */
 import { showToast } from "@/lib/toastFunctions";
+import Link from "next/link";
 
 /**
  * Declaring fonts and needed constants
  */
 const tinWeb = Overlock({ weight: "900", subsets: ["latin"] });
-const smallTextFont = Andika({ weight: "700", subsets: ["latin"] });
+const smallTextFont = Andika({ weight: "400", subsets: ["latin"] });
 
 /**
  * Car Details page component
@@ -178,12 +179,24 @@ const CarDetails = () => {
               </div>
             </div>
             <div className="options">
-              <button
-                className={tinWeb.className}
-                onClick={openCarBookingPopup}
-              >
-                Book This Car
-              </button>
+              {!session?.user ? (
+                <Link
+                  href={{
+                    pathname: "/login",
+                    query: { prevPath: pathname },
+                  }}
+                  className={tinWeb.className}
+                >
+                  Book This Car
+                </Link>
+              ) : (
+                <button
+                  className={tinWeb.className}
+                  onClick={openCarBookingPopup}
+                >
+                  Book This Car
+                </button>
+              )}
             </div>
           </div>
         </>

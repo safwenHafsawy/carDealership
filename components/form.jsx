@@ -7,6 +7,7 @@ import { Overlock } from "next/font/google";
 
 import { SubHeader } from "./header";
 import DragAndDrop from "./dragAndDropImg";
+import Link from "next/link";
 
 const tinWeb = Overlock({ weight: "700", subsets: ["latin"] });
 const acceptedTypes = ["image/jpeg", "image/png"];
@@ -58,7 +59,9 @@ const AuthForm = ({ type, items, onclick, showToast, toggleToast }) => {
 
   return (
     <div className={type === "Login" ? "auth__form" : "auth__form_long"}>
-      <SubHeader type="sub__header-dark">{type} here</SubHeader>
+      <SubHeader type="sub__header-dark">
+        {type === "Login" ? "Login" : "Create New Account"} here
+      </SubHeader>
       {items.map((item, index) => {
         return (
           <input
@@ -103,12 +106,19 @@ const AuthForm = ({ type, items, onclick, showToast, toggleToast }) => {
         {type == "Login" ? (
           <p style={tinWeb.style}>
             Don&apos;t have an account ?
-            <span onClick={toOtherForm}> Sign up here!</span>
+            <Link href="/signup"> Sign up here!</Link>
           </p>
         ) : (
           <p style={tinWeb.style}>
             Already have an account ?
-            <span onClick={toOtherForm}> Login here!</span>
+            <Link
+              href={{
+                pathname: "/login",
+                query: { prevPath: pathname },
+              }}
+            >
+              Login here!
+            </Link>
           </p>
         )}
       </div>

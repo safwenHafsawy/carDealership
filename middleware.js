@@ -16,6 +16,8 @@ async function middleware(req) {
   if (adminRoutes.test(req.nextUrl.pathname) && token?.userRole !== "ADMIN") {
     return NextResponse.redirect(new URL("/", req.url));
   }
+
+  //redirect after login
 }
 
 export default middleware;

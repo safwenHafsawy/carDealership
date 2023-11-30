@@ -5,7 +5,7 @@ import prisma from "@/prisma/prisma";
 import { checkUserCred } from "@/utils/userOperations";
 import customPrismaAdapter from "./customPrismaAdapter";
 
-const authOptions = {
+export const authOptions = {
   adapter: customPrismaAdapter(prisma),
   providers: [
     GoogleProvider({
