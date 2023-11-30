@@ -182,7 +182,7 @@ const Cars = () => {
               setListOfCars((prevState) => [...prevState, data]);
             }
             showToast(
-              `Car ${
+              `${data.manufacturer} ${data.model} was ${
                 operation === "POST" ? "created" : "updated"
               } successfully`,
               "success",
