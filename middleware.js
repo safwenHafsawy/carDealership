@@ -17,7 +17,10 @@ async function middleware(req) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  //redirect after login
+  // check if user is authenticated before showing rented cars
+  if (!isAuth && req.nextUrl.pathname === "/rentedCars") {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
 }
 
 export default middleware;
