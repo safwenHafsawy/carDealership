@@ -268,10 +268,14 @@ main {
 
     .dashboard_main-details {
       display: grid;
-      grid-template-columns: 70% 30%;
+      grid-template-columns: 60% 40%;
 
       .chart {
-        background-color: magenta;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4%;
+        box-sizing: border-box;
       }
 
       .recent_orders {

@@ -9,6 +9,7 @@ import { fetchDashboardData } from "@/utils/dashboardUtils";
 import { SectionHeader, SubHeader } from "@/components/header";
 import RecentReservations from "@/components/dashboardComponents/recentReservation";
 import SummaryDisplay from "@/components/dashboardComponents/summaryDisplay";
+import BarChart from "@/components/dashboardComponents/chat";
 
 const Dashboard = async () => {
   const session = await getServerSession(authOptions);
@@ -72,7 +73,9 @@ const Dashboard = async () => {
           </div>
         </div>
         <div className="dashboard_main-details">
-          <div className="chart"></div>
+          <div className="chart">
+            <BarChart dashboardData={dashboardData} />
+          </div>
           <div className="recent_orders">
             <RecentReservations />
           </div>
