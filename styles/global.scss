@@ -268,22 +268,26 @@ main {
 
     .dashboard_main-details {
       display: grid;
-      grid-template-columns: 60% 40%;
+      grid-template-columns: 70% 30%;
+      grid-column-gap: 20px;
+      padding: 2%;
+      box-sizing: border-box;
 
       .chart {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 4%;
+        padding: 2%;
         box-sizing: border-box;
+        background-color: $fifth-color;
       }
 
       .recent_orders {
-        background-color: aqua;
+        @include recent_orders;
       }
-    }
-  }
-}
+    } // main details styles end
+  } //dashboard main styles end
+} //dashboard styles end
 
 /**
  * Dashboard Car Page

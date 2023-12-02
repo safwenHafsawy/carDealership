@@ -58,3 +58,11 @@ export function getPrevMonth(currentDate) {
 
   return lastMonth;
 }
+
+export function getDifferenceBetweenTwoDates(firstDate, secondDate) {
+  const milliseconds = parseDate(secondDate) - parseDate(firstDate);
+
+  const differenceDays = milliseconds / (24 * 60 * 60 * 1000);
+
+  return differenceDays;
+}
