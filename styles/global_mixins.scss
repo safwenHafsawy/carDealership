@@ -232,3 +232,62 @@
 @mixin multipleCheckbox {
   background-color: aqua;
 }
+
+/**
+ * Dashboard mixins
+ */
+@mixin summary_display {
+  background-color: $fifth-color;
+  border-radius: 4px;
+  box-shadow: 0 0 6px $fourth-color;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  padding: 4% 2%;
+  transition: transform 500ms;
+
+  & > .display_text {
+    grid-area: 1 / 1 / 2 / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    & > span {
+      &:first-child {
+        font-size: 1.5rem;
+      }
+
+      &:last-child {
+        color: grey;
+      }
+    }
+  }
+  & > .display_visual {
+    grid-area: 1 / 2 / 2 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+
+    span {
+      padding: 12px;
+      border-radius: 4px;
+      color: $fourth-color;
+    }
+
+    .positive_growth {
+      background-color: rgba(63, 195, 128, 1);
+    }
+
+    .negative_growth {
+      background-color: red;
+    }
+  }
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}

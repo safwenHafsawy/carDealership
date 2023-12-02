@@ -29,10 +29,9 @@ export const POST = async (req) => {
 
 export const GET = async (req) => {
   try {
-    const bookingLogs = [];
     const token = await getToken({ req });
 
-    const logs = await prisma.carRental.findMany({
+    const findOptions = {
       where: {
         userId: token.userId,
       },
@@ -50,7 +49,9 @@ export const GET = async (req) => {
           },
         },
       },
-    });
+    };
+
+    const logs = await prisma.carRental.findMany(findOptions);
 
     if (logs.length > 0)
       return new Response(JSON.stringify(logs), { status: 200 });

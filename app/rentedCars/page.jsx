@@ -41,6 +41,7 @@ const RentedCars = () => {
         method: "GET",
         headers: {
           "content-type": "application/json",
+          "one-user": true,
         },
       });
 

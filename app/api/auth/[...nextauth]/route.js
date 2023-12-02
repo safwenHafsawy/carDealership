@@ -18,7 +18,7 @@ export const authOptions = {
           username: profile.given_name + "_" + profile.family_name,
           email: profile.email,
           image: profile.picture,
-          age: 0,
+          phoneNumber: 0,
         };
       },
       clientId: process.env.GOOGLE_CLIENT_ID,
