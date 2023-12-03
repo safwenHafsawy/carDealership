@@ -186,7 +186,7 @@
   background-color: $fourth-color;
   width: 100%;
   max-width: 450px;
-  margin: 2em;
+  margin: 1rem;
   border-radius: 15px;
   margin-bottom: 1rem;
   padding: 1rem;
@@ -239,6 +239,10 @@
   &:hover:after {
     opacity: 0.8;
   }
+
+  @media (max-width: 1030px) {
+    max-width: 250px;
+  }
 }
 
 /**
@@ -275,10 +279,14 @@
     & > * {
       margin-bottom: 5%;
     }
+
+    @media (max-width: 800px) {
+      width: 100%;
+    }
   }
 
   .filters__container-search {
-    @include actionButton($first-color, $third-color, 20%);
+    @include actionButton($first-color, $fourth-color, 20%);
   }
 }
 

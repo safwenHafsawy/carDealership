@@ -134,24 +134,27 @@ const CarCatalog = () => {
       </div>
       <div className="page__sections__rightSide">
         <CustomShapeDivider type="shape__divider__dark" />
-        <SectionHeader type="section_header-light">
-          Our Car Collection
-        </SectionHeader>
+
         {loading ? (
           <Loader loaderText="Fetching the newest details about the car inventory. Just a moment..." />
         ) : (
           <>
             <div id="card_section" className="card__container">
-              {carsList.map((car) => {
-                return (
-                  <Card
-                    key={car.id}
-                    carDetails={car}
-                    showToast={showToast}
-                    toggleToast={setToggleToast}
-                  />
-                );
-              })}
+              <SectionHeader type="section_header-light">
+                Our Car Collection
+              </SectionHeader>
+              <div>
+                {carsList.map((car) => {
+                  return (
+                    <Card
+                      key={car.id}
+                      carDetails={car}
+                      showToast={showToast}
+                      toggleToast={setToggleToast}
+                    />
+                  );
+                })}
+              </div>
             </div>
           </>
         )}
