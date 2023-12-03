@@ -48,6 +48,32 @@ main {
   background-image: url("../public/wave_bg_rev.svg");
   background-repeat: no-repeat;
   background-position: right;
+
+  @media (max-width: 600px) {
+    padding: 8%;
+
+    .homeBanner__text {
+      width: 95%;
+
+      & > p {
+        font-size: 1.5rem;
+        color: $fourth-color;
+      }
+    }
+
+    .homeBanner__image {
+      display: none;
+    }
+  }
+  @media (max-width: 430px) {
+    .homeBanner__text {
+      width: 80%;
+
+      & > p {
+        font-size: 1.5rem;
+      }
+    }
+  }
 }
 
 .homeBanner__text {
@@ -57,6 +83,13 @@ main {
   & > p {
     color: $second-color;
     font-size: 2rem;
+
+    @media (max-width: 1030px) {
+      font-size: 1.5rem;
+    }
+    @media (max-width: 800px) {
+      font-size: 1.2rem;
+    }
   }
 }
 
@@ -72,31 +105,45 @@ main {
     width: 80%;
     height: auto;
     filter: grayscale(24%) sepia(44%) saturate(79%) contrast(81%)
-      drop-shadow(1px 4px 4px $first-color);
+      drop-shadow(1px 4px 4px $fourth-color);
     -webkit-filter: grayscale(24%) sepia(44%) saturate(79%) contrast(81%)
-      drop-shadow(1px 1px 4px $first-color);
+      drop-shadow(1px 1px 4px $fourth-color);
     -moz-filter: grayscale(24%) sepia(44%) saturate(79%) contrast(81%)
-      drop-shadow(1px 4px 4px $first-color);
+      drop-shadow(1px 4px 4px $fourth-color);
   }
 }
 
 //Section 2
 .why__us {
   flex-direction: row-reverse;
+
+  @media (max-width: 430px) {
+    .why__us__left {
+      display: none;
+    }
+  }
 }
 
 .why__us__right {
   width: 100%;
-  //height: 100%;
   padding-left: 5%;
-  //background-color: #34302e;
 
   & > ul {
     list-style-type: none;
-    list-style-image: url("../public//listPointBlack.svg");
+    list-style: "► ";
 
     & > li {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
+      margin-top: 8px;
+      color: $fourth-color;
+
+      @media (max-width: 1030px) {
+        font-size: 1.2rem;
+      }
+
+      @media (max-width: 600px) {
+        font-size: 1rem;
+      }
     }
   }
 }
@@ -387,6 +434,10 @@ main {
  */
 
 .ListOfCustomers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $fourth-color;
 }
 
 /**
