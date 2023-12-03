@@ -298,13 +298,13 @@
   flex-direction: column;
   align-items: center;
   cursor: default;
+  box-shadow: 0 0 4px $fourth-color;
 
   h4 {
     font-size: 1rem;
     width: 100%;
     color: $fourth-color;
     padding-left: 8px;
-    //text-align: center;
   }
 
   ul {
@@ -325,6 +325,7 @@
       display: grid;
       grid-template-columns: 30% 50% 20%;
       background-color: $second-color;
+      border-radius: 8px;
 
       & > div {
         display: flex;

@@ -10,6 +10,7 @@ import { ToastPopup } from "@/components/popups";
 import { SectionHeader, SubHeader } from "@/components/header";
 import { MultipleCheckBox } from "@/components/filters/checkbox";
 import Loader from "@/components/loader";
+import DashboardSideNavigation from "@/components/dashboardComponents/dashboardSideNavigation";
 
 import { showToast } from "@/lib/toastFunctions";
 
@@ -260,6 +261,10 @@ const Cars = () => {
 
   const filterCars = () => {
     const { manufacturer, availability } = filters.current;
+    if (manufacturer.length === 0 && availability.length === 0) {
+      setListOfCars([...allCars.current]);
+      return;
+    }
     const notAvailableReg = new RegExp(
       "^(Available in \\d+ days)|(Available in 24 hours)$",
       "gm"
@@ -292,17 +297,16 @@ const Cars = () => {
   //useEffect(() => console.log(filters), [filters]);
 
   return (
-    <section className="page_sections-full">
+    <section className="adminDashboardSection">
+      <DashboardSideNavigation />
       {toggleToast.status ? (
         <ToastPopup
           toastText={toggleToast.message}
           toastType={toggleToast.type}
           toggleToast={setToggleToast}
         />
-      ) : (
-        <></>
-      )}
-      <div className="addCar">
+      ) : null}
+      <div className="carCollection">
         <CarForm
           title={formTitle}
           handleChange={handleChange}
@@ -314,70 +318,63 @@ const Cars = () => {
           showToast={showToast}
           toggleToast={setToggleToast}
         />
-      </div>
-      <div className="carCollection">
-        <SectionHeader type="section_header-light">
-          Car Collection
-        </SectionHeader>
+
         {Loading.status ? (
           <Loader loaderText={Loading.message} />
         ) : (
           <>
-            <div className="options">
-              <div className="options-left">
-                <div className="filters_container">
-                  <div className="filters_option">
-                    <span className={tinWeb.className}>Manufacturer: </span>
-                    <div className="filters_option-set">
-                      {existingManufacturers.current.map(
-                        (manufacturer, index) => {
-                          return (
-                            <MultipleCheckBox
-                              key={index}
-                              name="manufacturer"
-                              value={manufacturer}
-                              onChange={handleFilterChange}
-                            />
-                          );
-                        }
-                      )}
-                    </div>
+            <div className="carFiltring_options">
+              <button
+                className={tinWeb.className}
+                onClick={() => {
+                  resetForm();
+                  showForm(true, "Create");
+                }}
+              >
+                Add New Car
+              </button>
+              <div className="filters_container">
+                <h5 className={tinWeb.className}>Filters:</h5>
+                <div className="filters_option">
+                  <span className={tinWeb.className}>Manufacturer: </span>
+                  <div className="filters_option-set">
+                    {existingManufacturers.current.map(
+                      (manufacturer, index) => {
+                        return (
+                          <MultipleCheckBox
+                            key={index}
+                            name="manufacturer"
+                            value={manufacturer}
+                            onChange={handleFilterChange}
+                          />
+                        );
+                      }
+                    )}
                   </div>
-                  <div className="filters_option">
-                    <span className={tinWeb.className}>Availability: </span>
-                    <div className="filters_option-set">
-                      <MultipleCheckBox
-                        key={1}
-                        name={"availability"}
-                        value={"Available"}
-                        onChange={handleFilterChange}
-                      />
-                      <MultipleCheckBox
-                        key={2}
-                        name={"availability"}
-                        value={"Not Available"}
-                        onChange={handleFilterChange}
-                      />
-                    </div>
+                </div>
+                <div className="filters_option">
+                  <span className={tinWeb.className}>Availability: </span>
+                  <div className="filters_option-set">
+                    <MultipleCheckBox
+                      key={1}
+                      name={"availability"}
+                      value={"Available"}
+                      onChange={handleFilterChange}
+                    />
+                    <MultipleCheckBox
+                      key={2}
+                      name={"availability"}
+                      value={"Not Available"}
+                      onChange={handleFilterChange}
+                    />
                   </div>
                 </div>
                 <button className={tinWeb.className} onClick={filterCars}>
                   &#8711; Filter
                 </button>
               </div>
-
-              <div className="options-right">
-                <button
-                  className={tinWeb.className}
-                  onClick={() => {
-                    resetForm();
-                    showForm(true, "Create");
-                  }}
-                >
-                  Add New Car
-                </button>
-              </div>
             </div>
+
             <div className="carsContainer">
               {/*console.log(listOfCars)*/}
               {listOfCars.length === 0 ? (

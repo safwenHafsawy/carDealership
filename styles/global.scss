@@ -280,6 +280,7 @@ main {
         padding: 2%;
         box-sizing: border-box;
         background-color: $fifth-color;
+        box-shadow: 0 0 4px $fourth-color;
       }
 
       .recent_orders {
@@ -296,112 +297,88 @@ main {
 .carCollection {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding-top: 5%;
-  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 15% 1fr 0.1%;
+  grid-template-rows: 1fr;
 
-  & > h1 {
-    width: 100%;
-    text-align: center;
+  .carForm-hidden {
+    grid-area: 1 / 3 / 2 / 4;
   }
 
-  .options {
-    border: none;
+  .carFiltring_options {
+    grid-area: 1 / 1 / 2 / 2;
     width: 100%;
+    height: 100%;
+    background-color: $fourth-color;
+    padding: 4% 0 1%;
+    box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    border-radius: 10px;
-    height: 5rem;
+    border: 4px solid $second-color;
+    border-radius: 8px;
 
-    .options-left {
-      width: 70%;
-      background-color: $fifth-color;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: center;
+    //add car button
+    & > button {
+      @include actionButton($first-color, $fourth-color, $second-color);
+      width: 50%;
+    }
+
+    .filters_container {
+      width: 100%;
+      height: 90%;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 10% 70% 15% 1fr;
+      padding: 2%;
       box-sizing: border-box;
-      padding: 10px;
-      border-radius: 20px;
-      .filters_container {
+
+      & > h5 {
+        grid-area: 1 / 1 / 2 / 2;
         display: flex;
-        flex-direction: column;
         justify-content: center;
-        width: 100%;
-        min-width: 300px;
-        .filters_option {
+        align-items: center;
+        font-size: 1.2rem;
+        color: $second-color;
+      }
+
+      .filters_option {
+        height: 90%;
+        color: $second-color;
+
+        .filters_option-set {
+          height: 100%;
           display: flex;
-          flex-direction: row;
-          justify-content: flex-start;
-          align-items: center;
-          margin-top: 5px;
+          flex-direction: column;
+          margin-top: 8px;
           box-sizing: border-box;
-          text-align: start;
-          //background-color: magenta;
 
-          & > span {
-            //width: 100%;
-            text-align: start;
-            color: $fourth-color;
-            font-size: 1.2rem;
-            text-decoration: none;
-            display: block;
-            box-sizing: border-box;
-            //background-color: aqua;
-          }
-
-          .filters_option-set {
-            display: flex;
-            flex-direction: row;
-            width: 70%;
-            height: 1.2rem;
-            margin-left: 8px;
+          & > .custom-multiCheckbox {
+            flex: 1;
           }
         }
       }
-      & > button {
-        width: 10%;
-        height: 10%;
-        height: 3rem;
-        font-size: 1.1rem;
-        color: $second-color;
-        background-color: $third-color;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-      }
-    }
 
-    .options-right {
-      width: 10%;
-      background-color: $fifth-color;
-      padding: 10px;
-      border-radius: 20px;
+      // filter button
       & > button {
-        height: 3rem;
-        font-size: 1.1rem;
-        color: $second-color;
-        width: 100%;
-        background-color: $first-color;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
+        @include actionButton($third-color, $fourth-color, $second-color);
       }
     }
   }
 
   .carsContainer {
+    grid-area: 1 / 2 / 2 / 3;
+    overflow-y: scroll;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
+
+    .card {
+      width: 25%;
+    }
   }
 }
 
