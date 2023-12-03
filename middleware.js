@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 async function middleware(req) {
   const token = await getToken({ req });
+  console.log(token);
   const isAuth = !!token;
 
   //check if user is authenticated and trying to access login page again
