@@ -54,6 +54,19 @@ function Navigation() {
                   Booked Cars
                 </Link>
               </li>
+              {session?.user.role == "ADMIN" ? (
+                <li className="dropDownMenu__list__item mobile-item">
+                  <Link href="/dashboard">Dashboard</Link>
+                </li>
+              ) : (
+                <></>
+              )}
+              <li className="dropDownMenu__list__item mobile-item">
+                <Link href="/carCatalog">Car Catalog</Link>
+              </li>
+              <li className="dropDownMenu__list__item mobile-item">
+                <Link href="/">Home</Link>
+              </li>
             </ul>
           </div>
         ) : (

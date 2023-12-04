@@ -18,6 +18,7 @@ const tinWeb = Overlock({ weight: "700", subsets: ["latin"] });
 const Dashboard = async () => {
   const session = await getServerSession(authOptions);
   const dashboardData = await fetchDashboardData();
+  console.log("dahsboard data: " + dashboardData);
 
   return (
     <section className="adminDashboardSection">
