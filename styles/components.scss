@@ -279,6 +279,11 @@
   align-items: center;
   background-color: $fourth-color;
 
+  @media (max-width: 430px) {
+    padding-top: 10%;
+    min-height: 70%;
+  }
+
   .filters__container__filters {
     width: 70%;
     display: flex;
@@ -299,6 +304,17 @@
 
     @media (max-width: 800px) {
       width: 100%;
+    }
+    @media (max-width: 600px) {
+      padding: 0;
+
+      .filters__container-price {
+        display: none;
+      }
+
+      .singleCheckBox__container {
+        display: none;
+      }
     }
   }
 
